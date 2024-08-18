@@ -6,27 +6,29 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>products</title>
-    </head>
-    <body>
-        <h1>List routes</h1>
-        <form action="/BusMap/routes" method="get">
-        <label for="keyword">Tìm kiếm:</label>
-        <input type="text" id="keyword" name="kw" placeholder="Nhập tên tuyến đường...">
-        <input type="submit" value="Tìm kiếm">
-    </form>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<c:url value="/admin/routes" var="route"/>
+<h1 class="text-center" style="padding: 10px"><spring:message code="lable.quanlytuyenduong"/></h1>
+<form action="${route}" method="get" style="margin: 20px">
+    <label for="keyword">Tìm kiếm:</label>
+    <input type="text" id="keyword" name="kw" style="width: 230px" placeholder="Nhập mã số hoặc tên tuyến...">
+    <input type="submit" value="Tìm kiếm">
+</form>
 
-    <!-- Hiển thị danh sách các tuyến đường -->
-    <%--<c:if test="${route != null}">--%>
-        <ul>
-            <c:forEach var="route" items="${routes}">
-                <li>${route.name}</li>
-            </c:forEach>
-        </ul>
-    <%--</c:if>--%>
-    </body>
-</html>
+<ul class="bContainer">
+    <c:forEach var="route" items="${routes}">
+        <li>
+            <a href="#" style="text-decoration: none; color: black">
+                <div class="bItem">
+                    <h4 class="bId" > ${route.id}</h4>
+                    <h5 class="bName">${route.name}</h5>   
+                </div>
+            </a>
+        </li>
+    </c:forEach>
+</ul>
+
+
+
+
+

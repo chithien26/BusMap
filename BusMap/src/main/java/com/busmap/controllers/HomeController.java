@@ -4,7 +4,6 @@
  */
 package com.busmap.controllers;
 
-
 import com.busmap.pojo.Route;
 import com.busmap.service.RouteService;
 import com.busmap.service.StationService;
@@ -29,28 +28,35 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @ControllerAdvice
 public class HomeController {
+
     @Autowired
     private Environment env;
-    
+
     @Autowired
     private RouteService routeService;
     @Autowired
     private StationService stationService;
-    
+
     @RequestMapping("/")
-    public String index(Model model){
+    public String index(Model model) {
         return "index";
     }
-    
-    @RequestMapping(path="/routes",method = RequestMethod.GET)
-    public String search(Model model, @RequestParam Map<String, String> params){
-        model.addAttribute("routes", routeService.getRoutes(params));
-        return "routes";
+
+    @RequestMapping(path = "/contact")
+    public String contact(Model model) {
+        return "contact";
     }
-    
-    @RequestMapping(path = "/stations")
-    public String station(Model model){
-        model.addAttribute("stations", stationService.getStations());
-        return "stations";
-    }
+
+//    @RequestMapping(path = "/routes", method = RequestMethod.GET)
+//    public String routes(Model model, @RequestParam Map<String, String> params) {
+//        model.addAttribute("routes", routeService.getRoutes(params));
+//        return "routes";
+//    }
+
+//    @RequestMapping(path = "/stations")
+//    public String stations(Model model) {
+//        model.addAttribute("stations", stationService.getStations());
+//        return "stations";
+//    }
+
 }

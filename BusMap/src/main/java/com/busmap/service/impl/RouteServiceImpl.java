@@ -26,6 +26,21 @@ public class RouteServiceImpl implements RouteService{
         return this.routeRepository.getRotes(params);
     }
 
+    @Override
+    public void addOrUpdate(Route route) {
+        this.routeRepository.addOrUpdate(route);
+    }
+
+    @Override
+    public Route getRouteById(int i) {
+        return this.routeRepository.getRouteById(i);
+    }
+
+    @Override
+    public void deleteRoute(int i) {
+        this.routeRepository.deleteRoute(i);
+    }
+
     
     
     

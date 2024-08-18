@@ -15,6 +15,18 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
     </definition>
     <definition name="index" extends="baseLayout">
         <put-attribute name="title" value="Trang chủ" />
-        <put-attribute name="content" value="/WEB-INF/index.jsp" />
+        <put-attribute name="content" value="/WEB-INF/pages/index.jsp" />
+    </definition>
+    <definition name="contact" extends="baseLayout">
+        <put-attribute name="title" value="Liên hệ" />
+        <put-attribute name="content" value="/WEB-INF/pages/contact.jsp" />
+    </definition>
+    <definition name="routes" extends="baseLayout">
+        <put-attribute name="title" value=" Tuyến đường" />
+        <put-attribute name="content" value="/WEB-INF/pages/routes.jsp" />
+    </definition>
+    <definition name="stations" extends="baseLayout">
+        <put-attribute name="title" value="Trạm dừng" />
+        <put-attribute name="content" value="/WEB-INF/pages/stations.jsp" />
     </definition>
 </tiles-definitions>

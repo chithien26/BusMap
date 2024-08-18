@@ -4,10 +4,12 @@
  */
 package com.busmap.service.impl;
 
+import com.busmap.pojo.Route;
 import com.busmap.pojo.Station;
 import com.busmap.repository.StationRepository;
 import com.busmap.service.StationService;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +22,29 @@ public class StationServiceImpl implements StationService{
     @Autowired
     private StationRepository stationRepository;
     
+
+ 
+
     @Override
-    public List<Station> getStations() {
-        return this.stationRepository.getStations();
+    public void addOrUpdate(Station station) {
+        this.stationRepository.addOrUpdate(station);
     }
+
+    @Override
+    public Station getStationById(int id) {
+        return this.getStationById(id);
+    }
+
+    @Override
+    public void deleteStation(int id) {
+        this.stationRepository.deleteStation(id);
+    }
+
+    @Override
+    public List<Station> getStations(Map<String, String> params) {
+        return this.stationRepository.getStations(params);
+    }
+
+    
     
 }

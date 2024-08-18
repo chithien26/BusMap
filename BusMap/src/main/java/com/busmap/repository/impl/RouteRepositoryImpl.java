@@ -43,16 +43,43 @@ public class RouteRepositoryImpl implements RouteRepository{
             
             String kw = params.get("kw");
             if(kw != null && !kw.isEmpty()){
-                Predicate p = b.like(root.get("name"), String.format("%%%s%%", kw));
+                Predicate p = b.or(
+                        b.like(root.get("id").as(String.class), String.format("%%%s%%", kw)), 
+                        b.like(root.get("name"), String.format("%%%s%%", kw)));
                 predicates.add(p);
             }
             if (!predicates.isEmpty()) {
                 q.where(predicates.toArray(new Predicate[0]));
             }
+            
         }
         
         Query<Route> query = s.createQuery(q);
         return query.getResultList();
+    }
+
+
+    @Override
+    public Route getRouteById(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        return s.get(Route.class, id);
+    }
+
+    @Override
+    public void deleteRoute(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Route r = this.getRouteById(id);
+        s.delete(r);
+    }
+
+    @Override
+    public void addOrUpdate(Route route) {
+        Session s = this.factory.getObject().getCurrentSession();
+        if (route.getId() != null) {
+            s.update(route);
+        } else {
+            s.save(route);
+        }
     }
     
     

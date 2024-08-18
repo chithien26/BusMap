@@ -16,5 +16,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RouteRepository {
     List<Route> getRotes(Map<String, String> params);
-    
+    void addOrUpdate(Route route);
+    Route getRouteById(int id); 
+    void deleteRoute(int id); 
 }
