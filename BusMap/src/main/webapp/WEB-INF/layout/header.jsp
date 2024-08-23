@@ -9,7 +9,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
+<%@taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
 <c:url value="/" var="home"/>
 <c:url value="/contact" var="contact"/>
 <c:url value="/routes" var="routes"/>
@@ -35,6 +35,30 @@
             <li class="nav-item">
                 <a class="nav-link" href="${stations}"><spring:message code="lable.tramdung"/></a>
             </li>
+            <s:authorize access="isAuthenticated()">
+                <li class="nav-item">
+                    <a class="nav-link" href="<c:url value="/" />">
+                        Welcome <s:authentication property="principal.username" />
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<c:url value="/logout" />">
+                        Dang xuat
+                    </a>
+                </li>
+            </s:authorize>
+                <s:authorize access="!isAuthenticated()">
+                <li class="nav-item">
+                    <a class="nav-link" href="<c:url value="/login" />">
+                        Dang nhap
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<c:url value="/register" />">
+                        Dang ky
+                    </a>
+                </li>
+            </s:authorize>
         </ul>
     </div>
 

@@ -5,8 +5,8 @@
 package com.busmap.configs;
 
 import com.busmap.pojo.Route;
-import com.busmap.validator.RouteNameValidator;
-import com.busmap.validator.WebAppValidator;
+//import com.busmap.validator.RouteNameValidator;
+//import com.busmap.validator.WebAppValidator;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import java.util.HashSet;
@@ -74,16 +74,16 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         return m;
     }
 
-    @Bean
-    public Cloudinary cloudinary() {
-        Cloudinary cloudinary
-                = new Cloudinary(ObjectUtils.asMap(
-                        "cloud_name", "BusMap",
-                        "api_key", "544758496811834",
-                        "api_secret", "rDqPoK24mq56G9Tw8WA6Fh0q1Qs",
-                        "secure", true));
-        return cloudinary;
-    }
+//    @Bean
+//    public Cloudinary cloudinary() {
+//        Cloudinary cloudinary
+//                = new Cloudinary(ObjectUtils.asMap(
+//                        "cloud_name", "BusMap",
+//                        "api_key", "544758496811834",
+//                        "api_secret", "rDqPoK24mq56G9Tw8WA6Fh0q1Qs",
+//                        "secure", true));
+//        return cloudinary;
+//    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -103,14 +103,14 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     }
 
         
-    @Bean
-    public WebAppValidator routeValidator(){
-        Set<Validator> springValidators = new HashSet<>(); 
-        springValidators.add(new RouteNameValidator());
-        
-        WebAppValidator v = new WebAppValidator();
-        v.setSpringValidators(springValidators);
-        return v;
-        
-    }
+//    @Bean
+//    public WebAppValidator routeValidator(){
+//        Set<Validator> springValidators = new HashSet<>(); 
+//        springValidators.add(new RouteNameValidator());
+//        
+//        WebAppValidator v = new WebAppValidator();
+//        v.setSpringValidators(springValidators);
+//        return v;
+//        
+//    }
 }

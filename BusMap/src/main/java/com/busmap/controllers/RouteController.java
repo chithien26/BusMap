@@ -6,8 +6,8 @@ package com.busmap.controllers;
 
 import com.busmap.pojo.Route;
 import com.busmap.service.RouteService;
-import com.busmap.validator.RouteNameValidator;
-import com.busmap.validator.WebAppValidator;
+//import com.busmap.validator.RouteNameValidator;
+//import com.busmap.validator.WebAppValidator;
 import com.github.mustachejava.Binding;
 import java.util.Map;
 import javax.validation.Valid;
@@ -32,13 +32,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class RouteController {
     @Autowired
     private RouteService routeService;
-    @Autowired
-    private WebAppValidator routeValidator;
+//    @Autowired
+//    private WebAppValidator routeValidator;
     
-    @InitBinder
-    public void initBinder(WebDataBinder binder){
-        binder.setValidator(routeValidator);
-    }
+//    @InitBinder
+//    public void initBinder(WebDataBinder binder){
+//        binder.setValidator(routeValidator);
+//    }
     
     @RequestMapping(path = "/routes")
     public String list(Model model, @RequestParam Map<String, String> params){

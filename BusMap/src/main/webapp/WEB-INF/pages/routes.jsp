@@ -21,14 +21,10 @@
             <a href="#" style="text-decoration: none; color: black">
                 <div class="bItem">
                     <h4 class="bId" > ${route.id}</h4>
-                    <h5 class="bName">${route.name}</h5>   
+                    <h5 class="bName">${route.name}</h5> 
                 </div>
             </a>
         </li>
     </c:forEach>
+
 </ul>
-
-
-
-
-
