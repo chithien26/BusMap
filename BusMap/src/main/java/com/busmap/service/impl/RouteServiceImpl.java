@@ -32,13 +32,13 @@ public class RouteServiceImpl implements RouteService{
     }
 
     @Override
-    public Route getRouteById(int i) {
-        return this.routeRepository.getRouteById(i);
+    public Route getRouteById(int id) {
+        return this.routeRepository.getRouteById(id);
     }
 
     @Override
-    public void deleteRoute(int i) {
-        this.routeRepository.deleteRoute(i);
+    public void deleteRoute(int id) {
+        this.routeRepository.deleteRoute(id);
     }
 
     

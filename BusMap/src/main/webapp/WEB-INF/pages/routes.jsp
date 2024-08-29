@@ -5,26 +5,72 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<c:url value="/admin/routes" var="route"/>
-<h1 class="text-center" style="padding: 10px"><spring:message code="lable.quanlytuyenduong"/></h1>
-<form action="${route}" method="get" style="margin: 20px">
-    <label for="keyword">Tìm kiếm:</label>
-    <input type="text" id="keyword" name="kw" style="width: 230px" placeholder="Nhập mã số hoặc tên tuyến...">
-    <input type="submit" value="Tìm kiếm">
-</form>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<ul class="bContainer">
-    <c:forEach var="route" items="${routes}">
-        <li>
-            <a href="#" style="text-decoration: none; color: black">
-                <div class="bItem">
-                    <h4 class="bId" > ${route.id}</h4>
-                    <h5 class="bName">${route.name}</h5> 
-                </div>
-            </a>
-        </li>
-    </c:forEach>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/list.css"/>
 
-</ul>
+
+<c:url value="/routes" var="action"/>
+
+
+<div class="container">
+    <h2>Quản trị Tuyến Đường</h2>
+    <form action="${action}" method="get" class="search-form">
+        <div class="search-input-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="keyword" name="kw" placeholder="Nhập tên tuyến đường...">
+            <input type="submit" value="Tìm kiếm">
+        </div>
+
+    </form>
+
+    <!-- Bảng danh sách tuyến đường -->
+    <div class="route-list">
+        <table class="route-table">
+            <thead>
+                <tr>
+                    <th>Mã số tuyến</th>
+                    <th>Tên Tuyến</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="route" items="${routes}">
+                    <tr>
+                        <td style="text-align: center">${route.id}</td>
+                        <td>${route.name}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="<c:url value='/routes/${route.id}' />" class="btn-edit">Sửa</a>
+                                <a href="<c:url value='/routes/${route.id}/delete' />"  class="btn-delete" >Xóa</a>
+                            </div>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
+
+
+    
+    <!-- Form tạo mới tuyến đường -->
+    <div class="create-route-form">
+        <h4>Tạo Mới Tuyến Đường</h4>
+        <form:errors path="*" element="div" cssClass="alert alert-danger"/>
+        <form:form method="post" action="${action}"  modelAttribute="route">
+            <label for="id">Mã số tuyến:</label>
+            <form:input path="id" type="number" id="id" placeholder="Nhập mã số tuyến..." name="id" />
+            <label for="name">Tên Tuyến:</label>
+            <form:input path="name" type="text" id="name" placeholder="Nhập tên tuyến đường..." name="name" />
+            <label for="firstTrip">Chuyến đầu tiên:</label>
+            <form:input path="firstTrip" type="time" id="firstTrip" name="firstTrip" />
+            <label for="lastTrip">Chuyến cuối cùng:</label>
+            <form:input path="lastTrip" type="time" id="lastTrip" name="lastTrip" />
+            <label for="fare" >Giá vé:</label>
+            <form:input path="fare" type="number" id="fare" placeholder="Nhập giá vé..." name="fare" />
+            <button type="submit">Thêm tuyến đường</button>
+        </form:form>
+    </div>
+</div>

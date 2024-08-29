@@ -7,13 +7,11 @@ package com.busmap.repository;
 import com.busmap.pojo.Route;
 import java.util.List;
 import java.util.Map;
-import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author lechi
  */
-@Repository
 public interface RouteRepository {
     List<Route> getRotes(Map<String, String> params);
     void addOrUpdate(Route route);

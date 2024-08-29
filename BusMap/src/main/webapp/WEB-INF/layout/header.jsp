@@ -10,11 +10,12 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
+<link rel="stylesheet" href="css/style.css"/>
+
 <c:url value="/" var="home"/>
 <c:url value="/contact" var="contact"/>
 <c:url value="/routes" var="routes"/>
 <c:url value="/stations" var="stations"/>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 
     <div class="container-fluid">

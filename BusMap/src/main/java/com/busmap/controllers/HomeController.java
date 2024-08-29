@@ -46,7 +46,15 @@ public class HomeController {
     public String contact(Model model) {
         return "contact";
     }
-
+    
+    @RequestMapping("/test")
+    public String test(){
+        Route route = new Route(); 
+        route.setId(14);
+        route.setName("test - test");
+        this.routeService.addOrUpdate(route);
+        return "redirect:routes";
+    }
 //    @RequestMapping(path = "/routes", method = RequestMethod.GET)
 //    public String routes(Model model, @RequestParam Map<String, String> params) {
 //        model.addAttribute("routes", routeService.getRoutes(params));

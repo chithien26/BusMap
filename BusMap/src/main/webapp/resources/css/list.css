@@ -1,0 +1,120 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Aug 24, 2024, 3:46:28 AM
+    Author     : lechi
+*/
+
+.container {
+    width: 90%;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin: 0 auto; /* Để căn giữa container trong trang */
+    position: relative; /* Thiết lập relative cho container để phần tử bên trong có thể sử dụng fixed position */
+}
+
+.route-list {
+    width: 65%; /* Chiều rộng cho danh sách tuyến đường */
+    height: 400px; /* Đặt chiều cao tối đa cho danh sách */
+    overflow-y: auto; /* Cho phép cuộn danh sách tuyến đường */
+    margin-right: 30%; /* Tạo không gian cho form bên phải */
+}
+
+.create-route-form {
+    position: fixed; /* Giữ cố định form tạo mới bên phải */
+    top: 120px; /* Đặt khoảng cách từ phía trên */
+    right: 5%; /* Căn phải form so với container */
+    width: 28%; /* Chiều rộng cho form tạo mới */
+    background-color: #f8f9fa;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.create-route-form h4 {
+    text-align: center; /* Căn giữa tiêu đề form */
+}
+
+.create-route-form input,
+.create-route-form button[type="submit"] {
+    width: 100%; /* Đặt chiều rộng input bằng 100% */
+    padding: 3px;
+    margin-bottom: 7px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.create-route-form button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.create-route-form button[type="submit"]:hover {
+    background-color: #218838; /* Màu khi hover */
+}
+
+h2 {
+    text-align: center; /* Căn giữa nội dung h2 */
+    margin-bottom: 20px;
+}
+
+.route-table {
+    width: 100%; /* Đặt kích thước bảng */
+    border-collapse: collapse;
+}
+
+.route-table th, .route-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.route-table th {
+    background-color: #007bff;
+    color: white;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    width: 50%;
+}
+
+.btn-edit {
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.btn-delete:hover, .btn-edit:hover {
+    opacity: 0.8;
+}
+
+a{
+    text-decoration: none;
+}
+
+.search-input-container{
+    margin-bottom: 10px;
+}
+
+.time{
+    margin-left: 5px;
+    margin-bottom: 10px;
+}

@@ -39,6 +39,15 @@ CREATE TABLE `bus_trip` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `bus_trip`
+--
+
+LOCK TABLES `bus_trip` WRITE;
+/*!40000 ALTER TABLE `bus_trip` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bus_trip` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `favourite`
 --
 
@@ -60,6 +69,15 @@ CREATE TABLE `favourite` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `favourite`
+--
+
+LOCK TABLES `favourite` WRITE;
+/*!40000 ALTER TABLE `favourite` DISABLE KEYS */;
+/*!40000 ALTER TABLE `favourite` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `route`
 --
 
@@ -69,14 +87,24 @@ DROP TABLE IF EXISTS `route`;
 CREATE TABLE `route` (
   `id` int NOT NULL,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `first_trip_time` time DEFAULT NULL,
-  `last_trip_time` time DEFAULT NULL,
-  `farre` decimal(7,2) NOT NULL,
+  `first_trip` time DEFAULT NULL,
+  `last_trip` time DEFAULT NULL,
+  `fare` decimal(7,2) DEFAULT NULL,
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `active` bit(1) DEFAULT b'1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `route`
+--
+
+LOCK TABLES `route` WRITE;
+/*!40000 ALTER TABLE `route` DISABLE KEYS */;
+INSERT INTO `route` VALUES (1,'BX An Sương - ĐH Nguyễn Tất Thành Quận 12',NULL,NULL,NULL,'2024-08-24 11:17:01',_binary ''),(2,'Bến thành - BX miền tây',NULL,NULL,NULL,'2024-08-17 03:04:28',_binary ''),(3,'Bến thành - Thạnh Xuân',NULL,NULL,NULL,'2024-08-24 11:13:10',_binary ''),(4,'Bến thành - BX chợ lớn',NULL,NULL,NULL,'2024-08-17 03:04:28',_binary ''),(5,'BX miền tây - Gò vấp',NULL,NULL,NULL,'2024-08-17 03:04:28',_binary ''),(6,'Python',NULL,NULL,NULL,NULL,NULL),(7,'tuyáº¿n sá» 7','19:44:00','13:38:00',6000.00,NULL,NULL);
+/*!40000 ALTER TABLE `route` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `route_station`
@@ -90,6 +118,9 @@ CREATE TABLE `route_station` (
   `route_id` int NOT NULL,
   `station_id` int NOT NULL,
   `order` int NOT NULL,
+  `distance` decimal(6,3) DEFAULT NULL,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `active` bit(1) DEFAULT b'1',
   PRIMARY KEY (`id`),
   KEY `route_idx` (`route_id`),
   KEY `station_idx` (`station_id`),
@@ -97,6 +128,15 @@ CREATE TABLE `route_station` (
   CONSTRAINT `station` FOREIGN KEY (`station_id`) REFERENCES `station` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `route_station`
+--
+
+LOCK TABLES `route_station` WRITE;
+/*!40000 ALTER TABLE `route_station` DISABLE KEYS */;
+/*!40000 ALTER TABLE `route_station` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `schedule`
@@ -121,6 +161,15 @@ CREATE TABLE `schedule` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `schedule`
+--
+
+LOCK TABLES `schedule` WRITE;
+/*!40000 ALTER TABLE `schedule` DISABLE KEYS */;
+/*!40000 ALTER TABLE `schedule` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `station`
 --
 
@@ -129,14 +178,25 @@ DROP TABLE IF EXISTS `station`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `station` (
   `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `address` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `longitude` decimal(10,7) DEFAULT NULL,
   `latitude` decimal(10,7) DEFAULT NULL,
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `active` bit(1) DEFAULT b'1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `station`
+--
+
+LOCK TABLES `station` WRITE;
+/*!40000 ALTER TABLE `station` DISABLE KEYS */;
+INSERT INTO `station` VALUES (1,'Công viên gia định',NULL,NULL,NULL,'2024-08-12 10:36:31',_binary ''),(2,'Chợ bến thành',NULL,NULL,NULL,'2024-08-12 10:36:31',_binary ''),(3,'BX miền tây',NULL,NULL,NULL,'2024-08-12 10:36:31',_binary ''),(4,'BÁLFJhadfljkSDHFLAJSDHFLAJSDHF',NULL,NULL,NULL,'2024-08-24 18:19:39',_binary '');
+/*!40000 ALTER TABLE `station` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user`
@@ -151,15 +211,25 @@ CREATE TABLE `user` (
   `lastName` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   `username` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `avatar` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `avatar` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `active` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (2,'thien','le chi','chithien','chithien26','chithien26@gmail.com','0942117827','ROLE_ADMIN','asdasdf','2024-08-23 14:07:45',_binary '');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `vehicle`
@@ -177,6 +247,15 @@ CREATE TABLE `vehicle` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vehicle`
+--
+
+LOCK TABLES `vehicle` WRITE;
+/*!40000 ALTER TABLE `vehicle` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vehicle` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -187,4 +266,4 @@ CREATE TABLE `vehicle` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-06 14:31:43
+-- Dump completed on 2024-08-30  0:25:28

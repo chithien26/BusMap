@@ -6,6 +6,7 @@ package com.busmap.pojo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -35,8 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Route.findAll", query = "SELECT r FROM Route r"),
     @NamedQuery(name = "Route.findById", query = "SELECT r FROM Route r WHERE r.id = :id"),
     @NamedQuery(name = "Route.findByName", query = "SELECT r FROM Route r WHERE r.name = :name"),
-    @NamedQuery(name = "Route.findByFirstTripTime", query = "SELECT r FROM Route r WHERE r.firstTripTime = :firstTripTime"),
-    @NamedQuery(name = "Route.findByLastTripTime", query = "SELECT r FROM Route r WHERE r.lastTripTime = :lastTripTime"),
+    @NamedQuery(name = "Route.findByFirstTripTime", query = "SELECT r FROM Route r WHERE r.firstTrip = :firstTrip"),
+    @NamedQuery(name = "Route.findByLastTripTime", query = "SELECT r FROM Route r WHERE r.lastTrip = :lastTrip"),
     @NamedQuery(name = "Route.findByFare", query = "SELECT r FROM Route r WHERE r.fare = :fare"),
     @NamedQuery(name = "Route.findByCreatedDate", query = "SELECT r FROM Route r WHERE r.createdDate = :createdDate"),
     @NamedQuery(name = "Route.findByActive", query = "SELECT r FROM Route r WHERE r.active = :active")})
@@ -49,19 +50,17 @@ public class Route implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    @NotNull(message = "{route.name.notNull}")
+    @Size(min = 1, max = 50, message = "{route.name.errMsg}")
     @Column(name = "name")
     private String name;
-    @Column(name = "first_trip_time")
-    @Temporal(TemporalType.TIME)
-    private Date firstTripTime;
-    @Column(name = "last_trip_time")
-    @Temporal(TemporalType.TIME)
-    private Date lastTripTime;
+    @Column(name = "first_trip")
+//    @Temporal(TemporalType.TIME)
+    private LocalTime firstTrip;
+    @Column(name = "last_trip")
+//    @Temporal(TemporalType.TIME)
+    private LocalTime lastTrip;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "fare")
     private BigDecimal fare;
     @Column(name = "created_date")
@@ -105,20 +104,20 @@ public class Route implements Serializable {
         this.name = name;
     }
 
-    public Date getFirstTripTime() {
-        return firstTripTime;
+    public LocalTime getFirstTrip() {
+        return firstTrip;
     }
 
-    public void setFirstTripTime(Date firstTripTime) {
-        this.firstTripTime = firstTripTime;
+    public void setFirstTrip(LocalTime firstTripTime) {
+        this.firstTrip = firstTripTime;
     }
 
-    public Date getLastTripTime() {
-        return lastTripTime;
+    public LocalTime getLastTrip() {
+        return lastTrip;
     }
 
-    public void setLastTripTime(Date lastTripTime) {
-        this.lastTripTime = lastTripTime;
+    public void setLastTrip(LocalTime lastTripTime) {
+        this.lastTrip = lastTripTime;
     }
 
     public BigDecimal getFare() {

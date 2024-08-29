@@ -16,11 +16,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -28,8 +32,9 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author lechi
  */
 @Controller
-@RequestMapping("/admin")
+//@ControllerAdvice
 public class RouteController {
+    
     @Autowired
     private RouteService routeService;
 //    @Autowired
@@ -40,19 +45,56 @@ public class RouteController {
 //        binder.setValidator(routeValidator);
 //    }
     
-    @RequestMapping(path = "/routes")
+    @GetMapping(path = "/routes")
     public String list(Model model, @RequestParam Map<String, String> params){
         model.addAttribute("routes", routeService.getRoutes(params));
+        model.addAttribute("route", new Route());
         return "routes";
     }
     
     @PostMapping(path = "/routes")
-    public String add(@ModelAttribute(value = "route") @Valid Route route, BindingResult result ){
-        if(!result.hasErrors()){
-            return "redirect:/";
-        }
-        else{
+    public String add(Model model, @ModelAttribute(value = "route") @Valid Route route, BindingResult rs ){
+//        if(rs.hasErrors()){
+//            return "routes";
+//        }
+        try {
+            this.routeService.addOrUpdate(route);
+        } catch (Exception ex) {
+            model.addAttribute("errMsg", ex.getMessage());
             return "routes";
+
         }
+//        this.routeService.addOrUpdate(route);
+        return "redirect:routes";
     }
+    
+    @GetMapping(path = "/routes/{routeId}")
+    public String details(Model model, @PathVariable(value = "routeId") int id){
+        model.addAttribute("route", this.routeService.getRouteById(id));
+        return "routeDetails";
+    }
+    
+    @PostMapping(path = "/routes/{routeId}")
+    public String update(Model model, @ModelAttribute(value = "route") @Valid Route route, BindingResult rs ){
+//        try {
+//            this.routeService.addOrUpdate(route);
+//        } catch (Exception ex) {
+//            model.addAttribute("errMsg", ex.getMessage());
+//            return "routes";
+//
+//        }
+        this.routeService.addOrUpdate(route);
+        return "redirect:/routes";
+    }
+    
+    @RequestMapping(path = "/routes/{routeId}/delete")
+    public String delete(Model model, @PathVariable(value = "routeId") int id){
+        this.routeService.deleteRoute(id);
+        return "redirect:/routes";
+    }
+    
+    
+    
+    
+   
 }

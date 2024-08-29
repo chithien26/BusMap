@@ -4,6 +4,7 @@
  */
 package com.busmap.configs;
 
+import com.busmap.formatters.TimeFormatter;
 import com.busmap.pojo.Route;
 //import com.busmap.validator.RouteNameValidator;
 //import com.busmap.validator.WebAppValidator;
@@ -16,10 +17,9 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -41,7 +41,7 @@ import org.springframework.web.servlet.view.JstlView;
     "com.busmap.controllers",
     "com.busmap.repository",
     "com.busmap.service",
-    "com.busmap.validator",})
+    })
 public class WebAppContextConfig implements WebMvcConfigurer {
 
     @Override
@@ -90,16 +90,21 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/css/**").addResourceLocations("/resources/css/");
     }
 
+    @Bean(name = "validator")
+    public LocalValidatorFactoryBean validator() {
+        LocalValidatorFactoryBean v = new LocalValidatorFactoryBean();
+        v.setValidationMessageSource(messageSource());
+        return v;
+    }
+    
     @Override
     public Validator getValidator() {
         return validator();
     }
 
-    @Bean
-    public LocalValidatorFactoryBean validator() {
-        LocalValidatorFactoryBean v = new LocalValidatorFactoryBean();
-        v.setValidationMessageSource(messageSource());
-        return v;
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new TimeFormatter());
     }
 
         

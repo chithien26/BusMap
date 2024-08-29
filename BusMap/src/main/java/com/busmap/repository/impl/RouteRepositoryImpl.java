@@ -75,11 +75,12 @@ public class RouteRepositoryImpl implements RouteRepository{
     @Override
     public void addOrUpdate(Route route) {
         Session s = this.factory.getObject().getCurrentSession();
-        if (route.getId() != null) {
-            s.update(route);
-        } else {
-            s.save(route);
-        }
+        s.merge(route);
+//        Route r = s.get(Route.class, route.getId());
+//        if(r != null)
+//            s.update(route);
+//        else
+//            s.save(route);
     }
     
     
