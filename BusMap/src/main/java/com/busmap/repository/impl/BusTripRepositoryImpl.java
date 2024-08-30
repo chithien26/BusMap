@@ -4,8 +4,9 @@
  */
 package com.busmap.repository.impl;
 
+import com.busmap.pojo.BusTrip;
 import com.busmap.pojo.Route;
-import com.busmap.repository.RouteRepository;
+import com.busmap.repository.BusTripRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,60 +27,60 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class RouteRepositoryImpl implements RouteRepository{
+public class BusTripRepositoryImpl implements BusTripRepository {
+
     @Autowired
     private LocalSessionFactoryBean factory;
 
     @Override
-    public List<Route> getRotes(Map<String, String> params) {
+    public List<BusTrip> getBusTrips(Map<String, String> params) {
         Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
-        CriteriaQuery<Route> q = b.createQuery(Route.class);
-        Root root = q.from(Route.class);
+        CriteriaQuery<BusTrip> q = b.createQuery(BusTrip.class);
+        Root root = q.from(BusTrip.class);
         q.select(root);
-        
-        if(params != null){
+
+        if (params != null) {
             List<Predicate> predicates = new ArrayList<>();
-            
+
             String kw = params.get("kw");
-            if(kw != null && !kw.isEmpty()){
+            if (kw != null && !kw.isEmpty()) {
                 Predicate p = b.or(
-                        b.like(root.get("id").as(String.class), String.format("%%%s%%", kw)), 
-                        b.like(root.get("name"), String.format("%%%s%%", kw)));
+                        b.like(root.get("id").as(String.class), String.format("%%%s%%", kw)),
+                        b.like(root.get("route_id"), String.format("%%%s%%", kw)));
                 predicates.add(p);
             }
             if (!predicates.isEmpty()) {
                 q.where(predicates.toArray(new Predicate[0]));
             }
-            
+
         }
-        
-        Query<Route> query = s.createQuery(q);
+
+        Query<BusTrip> query = s.createQuery(q);
         return query.getResultList();
     }
 
-
     @Override
-    public Route getRouteById(int id) {
+    public void addOrUpdate(BusTrip busTrip) {
         Session s = this.factory.getObject().getCurrentSession();
-        return s.get(Route.class, id);
-    }
-
-    @Override
-    public void deleteRoute(int id) {
-        Session s = this.factory.getObject().getCurrentSession();
-        Route r = this.getRouteById(id);
-        s.delete(r);
-    }
-
-    @Override
-    public void addOrUpdate(Route route) {
-        Session s = this.factory.getObject().getCurrentSession();
-        s.merge(route);
+        s.merge(busTrip);
 //        Route r = s.get(Route.class, route.getId());
 //        if(r != null)
 //            s.update(route);
 //        else
 //            s.save(route);
+    }
+
+    @Override
+    public BusTrip getBusTripById(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        return s.get(BusTrip.class, id);
+    }
+
+    @Override
+    public void deleteBusTrip(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        BusTrip r = this.getBusTripById(id);
+        s.delete(r);
     }
 }

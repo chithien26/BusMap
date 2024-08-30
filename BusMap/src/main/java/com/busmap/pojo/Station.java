@@ -4,6 +4,7 @@
  */
 package com.busmap.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -66,8 +67,10 @@ public class Station implements Serializable {
     @Column(name = "active")
     private Boolean active;
     @OneToMany(mappedBy = "stationId")
+    @JsonIgnore
     private Set<Schedule> scheduleSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "stationId")
+    @JsonIgnore
     private Set<RouteStation> routeStationSet;
 
     public Station() {

@@ -4,6 +4,7 @@
  */
 package com.busmap.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -52,9 +53,11 @@ public class Schedule implements Serializable {
     private Boolean active;
     @JoinColumn(name = "bus_trip_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private BusTrip busTripId;
     @JoinColumn(name = "station_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Station stationId;
 
     public Schedule() {

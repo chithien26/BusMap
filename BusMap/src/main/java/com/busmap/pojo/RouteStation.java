@@ -37,8 +37,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class RouteStation implements Serializable {
 
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "distance")
-    private BigDecimal distance;
+    @Column(name = "dist_from_pre")
+    private BigDecimal distFromPre;
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
@@ -131,12 +131,12 @@ public class RouteStation implements Serializable {
         return "com.busmap.pojo.RouteStation[ id=" + id + " ]";
     }
 
-    public BigDecimal getDistance() {
-        return distance;
+    public BigDecimal getDistFromPre() {
+        return distFromPre;
     }
 
-    public void setDistance(BigDecimal distance) {
-        this.distance = distance;
+    public void setDistFromPre(BigDecimal distFromPre) {
+        this.distFromPre = distFromPre;
     }
 
     public Date getCreatedDate() {

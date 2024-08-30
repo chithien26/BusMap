@@ -16,6 +16,8 @@
 <c:url value="/contact" var="contact"/>
 <c:url value="/routes" var="routes"/>
 <c:url value="/stations" var="stations"/>
+<c:url value="/busTrip" var="busTrip"/>
+<c:url value="/schedules" var="schedules"/>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 
     <div class="container-fluid">
@@ -35,6 +37,12 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="${stations}"><spring:message code="lable.tramdung"/></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="${busTrip}"><spring:message code="lable.chuyenxe"/></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="${schedules}"><spring:message code="lable.lichtrinh"/></a>
             </li>
             <s:authorize access="isAuthenticated()">
                 <li class="nav-item">

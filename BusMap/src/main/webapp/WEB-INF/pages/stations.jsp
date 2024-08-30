@@ -6,9 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/list.css"/>
 
@@ -17,23 +16,23 @@
 
 
 <div class="container">
-    <h2>Quản trị trạm dừng</h2>
-
+    <h2>Quản trị tr?m d?ng</h2>
     <form action="${action}" method="get" class="search-form">
         <div class="search-input-container">
             <span class="search-icon">🔍</span>
-            <input type="text" id="keyword" name="kw" placeholder="Nhập tên trạm dừng...">
+            <input type="text" id="keyword" name="kw" placeholder="Nhập tên tr?m...">
             <input type="submit" value="Tìm kiếm">
         </div>
-        
+
     </form>
 
+    <!-- Bảng danh sách tuyến đường -->
     <div class="route-list">
         <table class="route-table">
             <thead>
                 <tr>
-                    <th>Mã số trạm</th>
-                    <th>Tên trạm</th>
+                    <th>Mã số tr?m</th>
+                    <th>Tên tr?m</th>
                     <th></th>
                 </tr>
             </thead>
@@ -56,7 +55,6 @@
 
     <div class="create-route-form">
         <h4>Tạo Mới Trạm Dừng</h4>
-        <form:errors path="*" element="div" cssClass="alert alert-danger"/>
         <form:form method="post" action="${action}"  modelAttribute="station">
             <label for="id">Mã số trạm:</label>
             <form:input path="id" type="number" id="id" placeholder="Nhập mã số tuyến..." name="id" />
@@ -73,5 +71,5 @@
     </div>
 </div>
 
-    
+
 

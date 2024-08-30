@@ -4,6 +4,7 @@
  */
 package com.busmap.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -48,9 +49,11 @@ public class Favourite implements Serializable {
     private Boolean active;
     @JoinColumn(name = "route_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Route routeId;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private User userId;
 
     public Favourite() {

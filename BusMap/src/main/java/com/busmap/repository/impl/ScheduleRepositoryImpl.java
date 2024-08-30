@@ -5,7 +5,8 @@
 package com.busmap.repository.impl;
 
 import com.busmap.pojo.Route;
-import com.busmap.repository.RouteRepository;
+import com.busmap.pojo.Schedule;
+import com.busmap.repository.ScheduleRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,16 +27,16 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class RouteRepositoryImpl implements RouteRepository{
+public class ScheduleRepositoryImpl implements ScheduleRepository{
     @Autowired
     private LocalSessionFactoryBean factory;
 
     @Override
-    public List<Route> getRotes(Map<String, String> params) {
+    public List<Schedule> getSchedules(Map<String, String> params) {
         Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
-        CriteriaQuery<Route> q = b.createQuery(Route.class);
-        Root root = q.from(Route.class);
+        CriteriaQuery<Schedule> q = b.createQuery(Schedule.class);
+        Root root = q.from(Schedule.class);
         q.select(root);
         
         if(params != null){
@@ -45,7 +46,8 @@ public class RouteRepositoryImpl implements RouteRepository{
             if(kw != null && !kw.isEmpty()){
                 Predicate p = b.or(
                         b.like(root.get("id").as(String.class), String.format("%%%s%%", kw)), 
-                        b.like(root.get("name"), String.format("%%%s%%", kw)));
+                        b.like(root.get("bus_trip_id").as(String.class), String.format("%%%s%%", kw)), 
+                        b.like(root.get("station_id"), String.format("%%%s%%", kw)));
                 predicates.add(p);
             }
             if (!predicates.isEmpty()) {
@@ -54,32 +56,34 @@ public class RouteRepositoryImpl implements RouteRepository{
             
         }
         
-        Query<Route> query = s.createQuery(q);
+        Query<Schedule> query = s.createQuery(q);
         return query.getResultList();
     }
 
 
     @Override
-    public Route getRouteById(int id) {
+    public Schedule getScheduleById(int id) {
         Session s = this.factory.getObject().getCurrentSession();
-        return s.get(Route.class, id);
+        return s.get(Schedule.class, id);
     }
 
     @Override
-    public void deleteRoute(int id) {
+    public void deleteSchedule(int id) {
         Session s = this.factory.getObject().getCurrentSession();
-        Route r = this.getRouteById(id);
+        Schedule r = this.getScheduleById(id);
         s.delete(r);
     }
 
     @Override
-    public void addOrUpdate(Route route) {
+    public void addOrUpdate(Schedule schedule) {
         Session s = this.factory.getObject().getCurrentSession();
-        s.merge(route);
+        s.merge(schedule);
 //        Route r = s.get(Route.class, route.getId());
 //        if(r != null)
 //            s.update(route);
 //        else
 //            s.save(route);
     }
+
+    
 }

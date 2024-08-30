@@ -8,6 +8,6 @@ package com.busmap.controllers;
  *
  * @author lechi
  */
-public class TripController {
+public class UserController {
     
 }

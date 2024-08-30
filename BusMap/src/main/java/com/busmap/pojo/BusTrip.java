@@ -4,6 +4,7 @@
  */
 package com.busmap.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -62,10 +63,13 @@ public class BusTrip implements Serializable {
     @Column(name = "active")
     private Boolean active;
     @OneToMany(mappedBy = "busTripId")
+    @JsonIgnore
     private Set<Schedule> scheduleSet;
     @JoinColumn(name = "route_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Route routeId;
+    @JsonIgnore
     @JoinColumn(name = "vehicle_id", referencedColumnName = "id")
     @ManyToOne
     private Vehicle vehicleId;

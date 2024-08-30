@@ -4,6 +4,7 @@
  */
 package com.busmap.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalTime;
@@ -17,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -69,12 +71,15 @@ public class Route implements Serializable {
     @Column(name = "active")
     private Boolean active;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "routeId")
+    @JsonIgnore
     private Set<RouteStation> routeStationSet;
     @OneToMany(mappedBy = "routeId")
+    @JsonIgnore
     private Set<Favourite> favouriteSet;
     @OneToMany(mappedBy = "routeId")
+    @JsonIgnore
     private Set<BusTrip> busTripSet;
-
+    
     public Route() {
     }
 

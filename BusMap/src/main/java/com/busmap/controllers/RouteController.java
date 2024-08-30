@@ -65,7 +65,7 @@ public class RouteController {
 
         }
 //        this.routeService.addOrUpdate(route);
-        return "redirect:routes";
+        return "redirect:/routes";
     }
     
     @GetMapping(path = "/routes/{routeId}")
