@@ -10,7 +10,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
-<link rel="stylesheet" href="css/style.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
 
 <c:url value="/" var="home"/>
 <c:url value="/contact" var="contact"/>

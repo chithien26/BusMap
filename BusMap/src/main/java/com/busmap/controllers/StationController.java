@@ -29,36 +29,59 @@ public class StationController {
     @Autowired
     private StationService stationService;
     
+     
+//    @Autowired
+//    private WebAppValidator routeValidator;
+    
+//    @InitBinder
+//    public void initBinder(WebDataBinder binder){
+//        binder.setValidator(routeValidator);
+//    }
+    
     @GetMapping(path = "/stations")
     public String list(Model model, @RequestParam Map<String, String> params){
         model.addAttribute("stations", stationService.getStations(params));
-        model.addAttribute("station", new Route());
+        model.addAttribute("station", new Station());
         return "stations";
     }
     
     @PostMapping(path = "/stations")
     public String add(Model model, @ModelAttribute(value = "station") @Valid Station station, BindingResult rs ){
 //        if(rs.hasErrors()){
-//            return "routes";
+//            return "stations";
 //        }
-//        try {
-//            this.routeService.addOrUpdate(route);
-//        } catch (Exception ex) {
-//            model.addAttribute("errMsg", ex.getMessage());
-//        }
-        this.stationService.addOrUpdate(station);
-        return "redirect:stations";
+        try {
+            this.stationService.addOrUpdate(station);
+        } catch (Exception ex) {
+            model.addAttribute("errMsg", ex.getMessage());
+            return "stations";
+
+        }
+        return "redirect:/stations";
     }
     
-    @RequestMapping(path = "/stations/{stationId}")
+    @GetMapping(path = "/stations/{stationId}")
     public String details(Model model, @PathVariable(value = "stationId") int id){
         model.addAttribute("station", this.stationService.getStationById(id));
         return "stationDetails";
     }
     
+    @PostMapping(path = "/stations/{routeId}")
+    public String update(Model model, @ModelAttribute(value = "station") @Valid Station station, BindingResult rs ){
+//        try {
+//            this.routeService.addOrUpdate(route);
+//        } catch (Exception ex) {
+//            model.addAttribute("errMsg", ex.getMessage());
+//            return "routes";
+//
+//        }
+        this.stationService.addOrUpdate(station);
+        return "redirect:/stations";
+    }
+    
     @RequestMapping(path = "/stations/{stationId}/delete")
     public String delete(Model model, @PathVariable(value = "stationId") int id){
         this.stationService.deleteStation(id);
-        return "forward:stations";
+        return "redirect:/stations";
     }
 }

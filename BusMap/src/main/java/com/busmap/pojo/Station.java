@@ -6,7 +6,6 @@ package com.busmap.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -56,11 +55,10 @@ public class Station implements Serializable {
     @Size(max = 100)
     @Column(name = "address")
     private String address;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "longitude")
-    private BigDecimal longitude;
+    private String longitude;
     @Column(name = "latitude")
-    private BigDecimal latitude;
+    private String latitude;
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
@@ -96,19 +94,19 @@ public class Station implements Serializable {
         this.address = address;
     }
 
-    public BigDecimal getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(BigDecimal longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
-    public BigDecimal getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(BigDecimal latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 

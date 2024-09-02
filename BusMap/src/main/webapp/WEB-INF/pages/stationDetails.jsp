@@ -12,27 +12,37 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/details.css"/>
 
-<c:url value="/stations" var="station"/>
-
+<c:url value="/stations/${station.id}" var="action"/>
 <div class="container">
-    <h2>Chi Tiết Trạm Dừng</h2>
-    <form:form action="${station}" method="post">
+    <h2>Chi Tiết Trạm dừng</h2>
+    <form:form action="${action}" method="post" modelAttribute="station" >
         <div class="form-group">
-            <label for="id">Mã Trạm Dừng</label>
-            <form:input type="text" path="id" id="id" value="" />
+            <label for="id">Mã trạm dừng</label>
+            <form:input type="number" path="id" id="id" name="id" value="${station.id}" readonly="true"/>
         </div>
 
         <div class="form-group">
-            <label for="stationName">Tên Trạm Dừng</label>
-            <form:input type="text" path="name" id="stationName" value="" />
+            <label for="name">Tên trạm dừng</label>
+            <form:input type="text" path="name" id="name" value="${station.name}" />
         </div>
 
-
+        <div class="form-group">
+            <label for="address">Địa chỉ</label>
+            <form:input type="text" path="address" id="address" value="${station.address}" />
+        </div>
+        <div class="form-group">
+            <label for="longitude">Kinh độ</label>
+            <form:input type="text" path="longitude" id="longitude" value="${station.longitude}" />
+        </div>
+        <div class="form-group">
+            <label for="latitude">Vĩ độ</label>
+            <form:input type="text" path="latitude" id="latitude" value="${station.latitude}" />
+        </div>
 
         <div class="action-buttons">
             <button type="submit" class="btn-update bt">Cập Nhật</button>
-            <button type="button" class="btn-delete bt" onclick="#">Xóa Trạm</button>
-            <button type="button" class="btn-back bt" onclick="#">Quay Lại</button>
+            <a type="button" class="btn-delete bt" href="<c:url value="/stations/${stationId}/delete" />">Xóa Tuyến</a>
+            <a type="button" class="btn-back bt" href="<c:url value="/stations" />">Quay Lại</a>
         </div>
     </form:form>
 </div>

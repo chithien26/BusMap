@@ -29,11 +29,27 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="title" value="Trạm dừng" />
         <put-attribute name="content" value="/WEB-INF/pages/stations.jsp" />
     </definition>
+    <definition name="schedules" extends="baseLayout">
+        <put-attribute name="title" value="Lịch trình" />
+        <put-attribute name="content" value="/WEB-INF/pages/schedules.jsp" />
+    </definition>
+    <definition name="busTrips" extends="baseLayout">
+        <put-attribute name="title" value="Chuyến xe" />
+        <put-attribute name="content" value="/WEB-INF/pages/busTrips.jsp" />
+    </definition>
     <definition name="routeDetails" extends="baseLayout">
         <put-attribute name="title" value="Chi tiet" />
         <put-attribute name="content" value="/WEB-INF/pages/routeDetails.jsp" />
     </definition>
     <definition name="stationDetails" extends="baseLayout">
+        <put-attribute name="title" value="Chi tiet" />
+        <put-attribute name="content" value="/WEB-INF/pages/stationDetails.jsp" />
+    </definition>
+    <definition name="scheduleDetails" extends="baseLayout">
+        <put-attribute name="title" value="Chi tiet" />
+        <put-attribute name="content" value="/WEB-INF/pages/stationDetails.jsp" />
+    </definition>
+    <definition name="busTripDetails" extends="baseLayout">
         <put-attribute name="title" value="Chi tiet" />
         <put-attribute name="content" value="/WEB-INF/pages/stationDetails.jsp" />
     </definition>

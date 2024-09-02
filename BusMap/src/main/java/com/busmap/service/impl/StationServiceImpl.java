@@ -4,7 +4,6 @@
  */
 package com.busmap.service.impl;
 
-import com.busmap.pojo.Route;
 import com.busmap.pojo.Station;
 import com.busmap.repository.StationRepository;
 import com.busmap.service.StationService;
@@ -32,7 +31,7 @@ public class StationServiceImpl implements StationService{
 
     @Override
     public Station getStationById(int id) {
-        return this.getStationById(id);
+        return this.stationRepository.getStationById(id);
     }
 
     @Override

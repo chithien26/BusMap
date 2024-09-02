@@ -76,11 +76,12 @@ public class StationRepositoryImpl implements StationRepository{
     @Override
     public void addOrUpdate(Station station) {
         Session s = this.factory.getObject().getCurrentSession();
-        Station sta = s.get(Station.class, station.getId());
-        if(sta != null)
-            s.update(station);
-        else
-            s.save(station);
+        s.merge(station);
+//        Station sta = s.get(Station.class, station.getId());
+//        if(sta != null)
+//            s.update(station);
+//        else
+//            s.save(station);
        
     }
     
