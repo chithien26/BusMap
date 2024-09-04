@@ -23,7 +23,7 @@ public class RouteServiceImpl implements RouteService{
 
     @Override
     public List<Route> getRoutes(Map<String, String> params) {
-        return this.routeRepository.getRotes(params);
+        return this.routeRepository.getRoutes(params);
     }
 
     @Override

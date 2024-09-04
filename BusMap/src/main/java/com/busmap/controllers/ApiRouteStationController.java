@@ -4,8 +4,8 @@
  */
 package com.busmap.controllers;
 
-import com.busmap.pojo.Route;
-import com.busmap.service.RouteService;
+import com.busmap.pojo.RouteStation;
+import com.busmap.service.RouteStationService;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,22 +25,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin
-public class ApiRouteController {
-
+public class ApiRouteStationController {
     @Autowired
-    private RouteService routeService;
+    private RouteStationService routeStationService;
 
-    @GetMapping("/routes")
-    public ResponseEntity<List<Route>> list(@RequestParam Map<String, String> params) {
-        List<Route> routes = this.routeService.getRoutes(params);
+    @GetMapping("/route_stations")
+    public ResponseEntity<List<RouteStation>> list(@RequestParam Map<String, String> params) {
+        List<RouteStation> routeStationses = this.routeStationService.getRouteStaion(params);
 
-        return new ResponseEntity<>(routes, HttpStatus.OK);
+        return new ResponseEntity<>(routeStationses, HttpStatus.OK);
     }
     
-    @GetMapping("/routes/{routeId}")
-    public ResponseEntity<Route> getRouteDetails(@PathVariable("routeId") int id) {
-        Route route = this.routeService.getRouteById(id);
-        return new ResponseEntity<>(route, HttpStatus.OK);
+    @GetMapping("/route_stations/{routeStationId}")
+    public ResponseEntity<RouteStation> getRouteStationDetails(@PathVariable("routeStationId") int id) {
+        RouteStation routeStation = this.routeStationService.getRouteStationById(id);
+        return new ResponseEntity<>(routeStation, HttpStatus.OK);
     }
     
 //    @GetMapping("/routes/find_route")

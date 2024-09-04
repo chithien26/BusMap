@@ -31,9 +31,9 @@ public class ApiStationController {
 
     @GetMapping("/stations")
     public ResponseEntity<List<Station>> list(@RequestParam Map<String, String> params) {
-        List<Station> routes = this.stationService.getStations(params);
+        List<Station> stations = this.stationService.getStations(params);
 
-        return new ResponseEntity<>(routes, HttpStatus.OK);
+        return new ResponseEntity<>(stations, HttpStatus.OK);
     }
     
     @GetMapping("/stations/{stationId}")
@@ -41,4 +41,8 @@ public class ApiStationController {
         Station station = this.stationService.getStationById(id);
         return new ResponseEntity<>(station, HttpStatus.OK);
     }
+    
+    
+    
+    
 }

@@ -5,7 +5,8 @@
 package com.busmap.repository.impl;
 
 import com.busmap.pojo.Route;
-import com.busmap.repository.RouteRepository;
+import com.busmap.pojo.RouteStation;
+import com.busmap.repository.RouteStationRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,16 +27,17 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class RouteRepositoryImpl implements RouteRepository{
+public class RouteStationRepositoryImpl implements RouteStationRepository{
+
     @Autowired
     private LocalSessionFactoryBean factory;
-
+    
     @Override
-    public List<Route> getRoutes(Map<String, String> params) {
+    public List<RouteStation> getRouteStaion(Map<String, String> params) {
         Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
-        CriteriaQuery<Route> q = b.createQuery(Route.class);
-        Root root = q.from(Route.class);
+        CriteriaQuery<RouteStation> q = b.createQuery(RouteStation.class);
+        Root root = q.from(RouteStation.class);
         q.select(root);
         
         if(params != null){
@@ -44,8 +46,8 @@ public class RouteRepositoryImpl implements RouteRepository{
             String kw = params.get("kw");
             if(kw != null && !kw.isEmpty()){
                 Predicate p = b.or(
-                        b.like(root.get("id").as(String.class), String.format("%%%s%%", kw)), 
-                        b.like(root.get("name"), String.format("%%%s%%", kw)));
+                        b.like(root.get("routeid").as(String.class), String.format("%%%s%%", kw)), 
+                        b.like(root.get("stationId"), String.format("%%%s%%", kw)));
                 predicates.add(p);
             }
             if (!predicates.isEmpty()) {
@@ -54,32 +56,28 @@ public class RouteRepositoryImpl implements RouteRepository{
             
         }
         
-        Query<Route> query = s.createQuery(q);
+        Query<RouteStation> query = s.createQuery(q);
         return query.getResultList();
     }
-
+    
 
     @Override
-    public Route getRouteById(int id) {
+    public void addOrUpdate(RouteStation routeStation) {
         Session s = this.factory.getObject().getCurrentSession();
-        return s.get(Route.class, id);
+        s.merge(routeStation);
     }
 
     @Override
-    public void deleteRoute(int id) {
+    public RouteStation getRouteStationById(int id) {
         Session s = this.factory.getObject().getCurrentSession();
-        Route r = this.getRouteById(id);
+        return s.get(RouteStation.class, id);
+    }
+
+    @Override
+    public void deleteRouteStation(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        RouteStation r = this.getRouteStationById(id);
         s.delete(r);
     }
-
-    @Override
-    public void addOrUpdate(Route route) {
-        Session s = this.factory.getObject().getCurrentSession();
-        s.merge(route);
-//        Route r = s.get(Route.class, route.getId());
-//        if(r != null)
-//            s.update(route);
-//        else
-//            s.save(route);
-    }
+    
 }

@@ -4,8 +4,8 @@
  */
 package com.busmap.controllers;
 
-import com.busmap.pojo.BusTrip;
-import com.busmap.service.BusTripService;
+import com.busmap.pojo.RouteStation;
+import com.busmap.service.RouteStationService;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author lechi
  */
 @Controller
-public class BusTripController {
+public class RouteStationController {
     @Autowired
-    private BusTripService busTripService;
+    private RouteStationService routeStationService;
 //    @Autowired
 //    private WebAppValidator routeValidator;
     
@@ -35,36 +35,37 @@ public class BusTripController {
 //        binder.setValidator(routeValidator);
 //    }
     
-    @GetMapping(path = "/bus_trips")
+    @GetMapping(path = "/route_stations")
     public String list(Model model, @RequestParam Map<String, String> params){
-        model.addAttribute("busTrips", busTripService.getBusTrips(params));
-        model.addAttribute("busTrip", new BusTrip());
-        return "bus_trips";
+        model.addAttribute("routeStations", routeStationService.getRouteStaion(params));
+        model.addAttribute("routeStation", new RouteStation());
+        return "route_stations";
     }
     
-    @PostMapping(path = "/bus_trips")
-    public String add(Model model, @ModelAttribute(value = "busTrip") @Valid BusTrip busTrip, BindingResult rs ){
+    @PostMapping(path = "/route_stations")
+    public String add(Model model, @ModelAttribute(value = "routeStation") @Valid RouteStation routeStation, BindingResult rs ){
 //        if(rs.hasErrors()){
 //            return "routes";
 //        }
         try {
-            this.busTripService.addOrUpdate(busTrip);
+            this.routeStationService.addOrUpdate(routeStation);
         } catch (Exception ex) {
             model.addAttribute("errMsg", ex.getMessage());
-            return "bus_trips";
+            return "route_stations";
 
         }
-        return "redirect:/bus_trips";
+//        this.routeService.addOrUpdate(route);
+        return "redirect:/route_stations";
     }
     
-    @GetMapping(path = "/bus_trips/{busTripId}")
-    public String details(Model model, @PathVariable(value = "busTripId") int id){
-        model.addAttribute("busTrip", this.busTripService.getBusTripById(id));
-        return "busTripDetails";
+    @GetMapping(path = "/route_stations/{routeStationId}")
+    public String details(Model model, @PathVariable(value = "routeStationId") int id){
+        model.addAttribute("routeStation", this.routeStationService.getRouteStationById(id));
+        return "routeStationDetails";
     }
     
-    @PostMapping(path = "/bus_trips/{busTripId}")
-    public String update(Model model, @ModelAttribute(value = "busTrip") @Valid BusTrip busTrip, BindingResult rs ){
+    @PostMapping(path = "/route_stations/{routeStationId}")
+    public String update(Model model, @ModelAttribute(value = "routeStation") @Valid RouteStation routeStation, BindingResult rs ){
 //        try {
 //            this.routeService.addOrUpdate(route);
 //        } catch (Exception ex) {
@@ -72,13 +73,13 @@ public class BusTripController {
 //            return "routes";
 //
 //        }
-        this.busTripService.addOrUpdate(busTrip);
-        return "redirect:/bus_trips";
+        this.routeStationService.addOrUpdate(routeStation);
+        return "redirect:/route_stations";
     }
     
-    @RequestMapping(path = "/bus_trips/{busTripId}/delete")
-    public String delete(Model model, @PathVariable(value = "busTripId") int id){
-        this.busTripService.deleteBusTrip(id);
-        return "redirect:/bus_trips";
+    @RequestMapping(path = "/route_stations/{routeStationId}/delete")
+    public String delete(Model model, @PathVariable(value = "routeStationId") int id){
+        this.routeStationService.deleteRouteStation(id);
+        return "redirect:/route_stations";
     }
 }

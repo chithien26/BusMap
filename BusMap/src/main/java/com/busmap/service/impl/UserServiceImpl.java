@@ -46,4 +46,9 @@ public class UserServiceImpl implements UserService {
                 u.getUsername(), u.getPassword(), authorities);
     }
 
+    @Override
+    public User createUser(User user) {
+        return this.userRepository.createUser(user);
+    }
+
 }

@@ -4,6 +4,7 @@
  */
 package com.busmap.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -58,9 +59,11 @@ public class Route implements Serializable {
     private String name;
     @Column(name = "first_trip")
 //    @Temporal(TemporalType.TIME)
+    @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime firstTrip;
     @Column(name = "last_trip")
 //    @Temporal(TemporalType.TIME)
+    @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime lastTrip;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "fare")

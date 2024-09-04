@@ -34,4 +34,13 @@ public class UserRepositoryImpl implements UserRepository {
 
     }
 
+    @Override
+    public User createUser(User user) {
+        Session s = this.factory.getObject().getCurrentSession();
+        s.save(user);
+        
+        return user;
+        
+    }
+
 }

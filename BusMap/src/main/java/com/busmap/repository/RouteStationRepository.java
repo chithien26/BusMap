@@ -4,7 +4,7 @@
  */
 package com.busmap.repository;
 
-import com.busmap.pojo.Route;
+import com.busmap.pojo.RouteStation;
 import java.util.List;
 import java.util.Map;
 
@@ -12,9 +12,9 @@ import java.util.Map;
  *
  * @author lechi
  */
-public interface RouteRepository {
-    List<Route> getRoutes(Map<String, String> params);
-    void addOrUpdate(Route route);
-    Route getRouteById(int id); 
-    void deleteRoute(int id); 
+public interface RouteStationRepository {
+    List<RouteStation> getRouteStaion(Map<String, String> params);
+    void addOrUpdate(RouteStation routeStation);
+    RouteStation getRouteStationById(int id); 
+    void deleteRouteStation(int id); 
 }

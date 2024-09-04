@@ -6,10 +6,10 @@
     <class>com.busmap.pojo.Vehicle</class>
     <class>com.busmap.pojo.Station</class>
     <class>com.busmap.pojo.User</class>
-    <class>com.busmap.pojo.Route</class>
     <class>com.busmap.pojo.Schedule</class>
     <class>com.busmap.pojo.Favourite</class>
     <class>com.busmap.pojo.BusTrip</class>
+    <class>com.busmap.pojo.Route</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/busmapdb?zeroDateTimeBehavior=CONVERT_TO_NULL"/>

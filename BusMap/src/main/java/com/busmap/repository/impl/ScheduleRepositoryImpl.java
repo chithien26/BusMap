@@ -46,8 +46,8 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
             if(kw != null && !kw.isEmpty()){
                 Predicate p = b.or(
                         b.like(root.get("id").as(String.class), String.format("%%%s%%", kw)), 
-                        b.like(root.get("bus_trip_id").as(String.class), String.format("%%%s%%", kw)), 
-                        b.like(root.get("station_id"), String.format("%%%s%%", kw)));
+                        b.like(root.get("busTripId").as(String.class), String.format("%%%s%%", kw)), 
+                        b.like(root.get("stationId"), String.format("%%%s%%", kw)));
                 predicates.add(p);
             }
             if (!predicates.isEmpty()) {

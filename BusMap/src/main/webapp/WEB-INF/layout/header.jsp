@@ -16,8 +16,10 @@
 <c:url value="/contact" var="contact"/>
 <c:url value="/routes" var="routes"/>
 <c:url value="/stations" var="stations"/>
-<c:url value="/busTrip" var="busTrip"/>
+<c:url value="/bus_trips" var="busTrips"/>
 <c:url value="/schedules" var="schedules"/>
+<c:url value="/route_stations" var="routeStations"/>
+
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 
     <div class="container-fluid">
@@ -39,10 +41,13 @@
                 <a class="nav-link" href="${stations}"><spring:message code="lable.tramdung"/></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="${busTrip}"><spring:message code="lable.chuyenxe"/></a>
+                <a class="nav-link" href="${busTrips}"><spring:message code="lable.chuyenxe"/></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="${schedules}"><spring:message code="lable.lichtrinh"/></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="${routeStations}">Tuyen-Tram</a>
             </li>
             <s:authorize access="isAuthenticated()">
                 <li class="nav-item">
@@ -52,19 +57,19 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/logout" />">
-                        Dang xuat
+                        Đăng xuất
                     </a>
                 </li>
             </s:authorize>
                 <s:authorize access="!isAuthenticated()">
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/login" />">
-                        Dang nhap
+                        Đăng nhập
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/register" />">
-                        Dang ky
+                        Đăng ký
                     </a>
                 </li>
             </s:authorize>

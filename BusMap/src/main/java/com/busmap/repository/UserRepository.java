@@ -12,4 +12,5 @@ import com.busmap.pojo.User;
  */
 public interface UserRepository {
     User getUserByUsername(String username);
+    User createUser(User user);
 }
