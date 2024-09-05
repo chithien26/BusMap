@@ -7,6 +7,7 @@ package com.busmap.repository;
 import com.busmap.pojo.RouteStation;
 import java.util.List;
 import java.util.Map;
+import org.eclipse.persistence.jpa.jpql.parser.OnClause;
 
 /**
  *
@@ -17,4 +18,8 @@ public interface RouteStationRepository {
     void addOrUpdate(RouteStation routeStation);
     RouteStation getRouteStationById(int id); 
     void deleteRouteStation(int id); 
+    Object nextRouteStation(RouteStation routeStation);
+    Object backRouteStation(RouteStation routeStation);
+    List<RouteStation> getRouteStationByRoute(int routeId);
+    
 }

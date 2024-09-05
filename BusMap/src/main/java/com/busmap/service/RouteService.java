@@ -5,6 +5,7 @@
 package com.busmap.service;
 
 import com.busmap.pojo.Route;
+import com.busmap.pojo.Station;
 import java.util.List;
 import java.util.Map;
 
@@ -17,4 +18,7 @@ public interface RouteService {
     void addOrUpdate(Route route);
     Route getRouteById(int id); 
     void deleteRoute(int id); 
+    List<Route> findRoutes(int startStationId, int endStationId);
+    List<Station> getStationsInRoute(int routeId, int startStationId, int endStationId);
+    List<Station> getAllStationsInRoute(int routeId);
 }

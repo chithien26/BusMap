@@ -55,4 +55,9 @@ public class ApiRouteStationController {
 //        
 //        return new ResponseEntity<>(routes, HttpStatus.OK);
 //    }
+    @GetMapping("/route_stations/get_by_route/{routeId}")
+    public ResponseEntity<List<RouteStation>> getRouteStationByRoute(@PathVariable("routeId") int routeId){
+        List<RouteStation> routeStations = this.routeStationService.getRouteStationByRoute(routeId);
+        return new ResponseEntity<>(routeStations, HttpStatus.OK);
+    }
 }

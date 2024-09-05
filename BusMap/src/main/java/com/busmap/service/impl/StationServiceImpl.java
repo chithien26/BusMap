@@ -17,12 +17,10 @@ import org.springframework.stereotype.Service;
  * @author lechi
  */
 @Service
-public class StationServiceImpl implements StationService{
+public class StationServiceImpl implements StationService {
+
     @Autowired
     private StationRepository stationRepository;
-    
-
- 
 
     @Override
     public void addOrUpdate(Station station) {
@@ -45,5 +43,5 @@ public class StationServiceImpl implements StationService{
     }
 
     
-    
+
 }

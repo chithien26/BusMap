@@ -5,6 +5,7 @@
 package com.busmap.repository.impl;
 
 import com.busmap.pojo.Route;
+import com.busmap.pojo.RouteStation;
 import com.busmap.pojo.Station;
 import com.busmap.repository.StationRepository;
 import java.util.ArrayList;
@@ -27,10 +28,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class StationRepositoryImpl implements StationRepository{
+public class StationRepositoryImpl implements StationRepository {
+
     @Autowired
     private LocalSessionFactoryBean factory;
-    
+
     @Override
     public List<Station> getStations(Map<String, String> params) {
         Session s = this.factory.getObject().getCurrentSession();
@@ -38,12 +40,12 @@ public class StationRepositoryImpl implements StationRepository{
         CriteriaQuery<Station> q = b.createQuery(Station.class);
         Root root = q.from(Station.class);
         q.select(root);
-        
-        if(params != null){
+
+        if (params != null) {
             List<Predicate> predicates = new ArrayList<>();
-            
+
             String kw = params.get("kw");
-            if(kw != null && !kw.isEmpty()){
+            if (kw != null && !kw.isEmpty()) {
                 Predicate p = b.like(root.get("name"), String.format("%%%s%%", kw));
                 predicates.add(p);
             }
@@ -51,13 +53,11 @@ public class StationRepositoryImpl implements StationRepository{
                 q.where(predicates.toArray(new Predicate[0]));
             }
         }
-        
+
         Query<Station> query = s.createQuery(q);
         return query.getResultList();
-        
-    }
 
- 
+    }
 
     @Override
     public Station getStationById(int id) {
@@ -72,7 +72,6 @@ public class StationRepositoryImpl implements StationRepository{
         s.delete(sta);
     }
 
-
     @Override
     public void addOrUpdate(Station station) {
         Session s = this.factory.getObject().getCurrentSession();
@@ -82,7 +81,8 @@ public class StationRepositoryImpl implements StationRepository{
 //            s.update(station);
 //        else
 //            s.save(station);
-       
+
     }
+
     
 }

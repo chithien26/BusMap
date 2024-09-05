@@ -64,10 +64,10 @@ public class Station implements Serializable {
     private Date createdDate;
     @Column(name = "active")
     private Boolean active;
-    @OneToMany(mappedBy = "stationId")
+    @OneToMany(mappedBy = "station")
     @JsonIgnore
     private Set<Schedule> scheduleSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stationId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "station")
     @JsonIgnore
     private Set<RouteStation> routeStationSet;
 

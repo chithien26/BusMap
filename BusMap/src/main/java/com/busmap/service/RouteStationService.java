@@ -17,4 +17,7 @@ public interface RouteStationService {
     void addOrUpdate(RouteStation routeStation);
     RouteStation getRouteStationById(int id); 
     void deleteRouteStation(int id); 
+    Object nextRouteStation(RouteStation routeStation);
+    Object backRouteStation(RouteStation routeStation);
+    List<RouteStation> getRouteStationByRoute(int routeId);
 }

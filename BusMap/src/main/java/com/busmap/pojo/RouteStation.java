@@ -57,10 +57,10 @@ public class RouteStation implements Serializable {
     private int order;
     @JoinColumn(name = "route_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Route routeId;
+    private Route route;
     @JoinColumn(name = "station_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Station stationId;
+    private Station station;
 
     public RouteStation() {
     }
@@ -90,20 +90,20 @@ public class RouteStation implements Serializable {
         this.order = order;
     }
 
-    public Route getRouteId() {
-        return routeId;
+    public Route getRoute() {
+        return route;
     }
 
-    public void setRouteId(Route routeId) {
-        this.routeId = routeId;
+    public void setRoute(Route route) {
+        this.route = route;
     }
 
-    public Station getStationId() {
-        return stationId;
+    public Station getStation() {
+        return station;
     }
 
-    public void setStationId(Station stationId) {
-        this.stationId = stationId;
+    public void setStation(Station station) {
+        this.station = station;
     }
 
     @Override

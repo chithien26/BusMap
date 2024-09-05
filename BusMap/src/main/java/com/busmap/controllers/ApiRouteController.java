@@ -5,6 +5,7 @@
 package com.busmap.controllers;
 
 import com.busmap.pojo.Route;
+import com.busmap.pojo.Station;
 import com.busmap.service.RouteService;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,17 +45,28 @@ public class ApiRouteController {
         return new ResponseEntity<>(route, HttpStatus.OK);
     }
     
-//    @GetMapping("/routes/find_route")
-//    public ResponseEntity<List<Route>> fineRoutes(
-//            @RequestParam("startAddress") String startAddress,
-//            @RequestParam("endAddress") String endAddress) {
-//        // Chuyển địa chỉ thành tọa độ
-//        GeoLocation startLocation = geoService.getCoordinates(startAddress);
-//        GeoLocation endLocation = geoService.getCoordinates(endAddress);
-//        
-//        // Tìm tuyến xe
-//        List<BusRoute> routes = busRouteService.findRoutes(startLocation, endLocation);
-//        
-//        return new ResponseEntity<>(routes, HttpStatus.OK);
-//    }
+    @PostMapping("/routes/find_routes")
+    public ResponseEntity<List<Route>> findRoutes(
+            @RequestParam("startStationId") int startStationId,
+            @RequestParam("endStationId") int endStationId) {
+        List<Route> routes = this.routeService.findRoutes(startStationId, endStationId);
+        return new ResponseEntity<>(routes, HttpStatus.OK);
+    }
+    
+    
+    @PostMapping("/routes/station_in_route")
+    public ResponseEntity<List<Station>> getStationsInRoute(
+            @RequestParam("routeId") int routeId,
+            @RequestParam("startStationId") int startStationId,
+            @RequestParam("endStationId") int endStationId) {
+        List<Station> stations = this.routeService.getStationsInRoute(routeId, startStationId, endStationId);
+        return new ResponseEntity<>(stations, HttpStatus.OK);
+    }
+    
+    @GetMapping("/routes/all_station_in_route/{routeId}")
+    public ResponseEntity<List<Station>> getAllStationsInRoute(@PathVariable("routeId") int routeId) {
+        List<Station> stations = this.routeService.getAllStationsInRoute(routeId);
+        return new ResponseEntity<>(stations, HttpStatus.OK);
+    }
+    
 }

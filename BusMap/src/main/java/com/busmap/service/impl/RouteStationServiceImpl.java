@@ -41,6 +41,21 @@ public class RouteStationServiceImpl implements RouteStationService{
     public void deleteRouteStation(int id) {
         this.RouteStationRepository.deleteRouteStation(id);
     }
+
+    @Override
+    public Object nextRouteStation(RouteStation rs) {
+        return this.RouteStationRepository.nextRouteStation(rs);
+    }
+
+    @Override
+    public Object backRouteStation(RouteStation rs) {
+        return this.RouteStationRepository.backRouteStation(rs);
+    }
+
+    @Override
+    public List<RouteStation> getRouteStationByRoute(int routeId) {
+        return this.RouteStationRepository.getRouteStationByRoute(routeId);
+    }
     
     
 }

@@ -10,6 +10,9 @@ import com.busmap.repository.RouteStationRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -46,8 +49,8 @@ public class RouteStationRepositoryImpl implements RouteStationRepository{
             String kw = params.get("kw");
             if(kw != null && !kw.isEmpty()){
                 Predicate p = b.or(
-                        b.like(root.get("routeid").as(String.class), String.format("%%%s%%", kw)), 
-                        b.like(root.get("stationId"), String.format("%%%s%%", kw)));
+                        b.like(root.get("route").as(String.class), String.format("%%%s%%", kw)), 
+                        b.like(root.get("station"), String.format("%%%s%%", kw)));
                 predicates.add(p);
             }
             if (!predicates.isEmpty()) {
@@ -79,5 +82,48 @@ public class RouteStationRepositoryImpl implements RouteStationRepository{
         RouteStation r = this.getRouteStationById(id);
         s.delete(r);
     }
+
+    @Override
+    public Object nextRouteStation(RouteStation routeStation) {
+        Session s = this.factory.getObject().getCurrentSession();
+        String hql = "FROM RouteStation rs WHERE rs.route.id = :routeId AND rs.station.id = :stationId AND rs.order = :order";
+        RouteStation rs = s.createQuery(hql,RouteStation.class)
+                .setParameter("routeId", routeStation.getRoute())
+                .setParameter("stationId", routeStation.getStation())
+                .setParameter("order", routeStation.getOrder() + 1)
+                .uniqueResult();
+        if(rs == null){
+            return "Không tìm thấy trạm tiếp theo";
+        }
+        return rs;
+    }
     
+
+    @Override
+    public Object backRouteStation(RouteStation routeStation) {
+        Session s = this.factory.getObject().getCurrentSession();
+        String hql = "FROM RouteStation rs WHERE rs.route.id = :routeId AND rs.station.id =. :stationId AND rs.order = :order";
+        RouteStation rs = s.createQuery(hql,RouteStation.class)
+                .setParameter("routeId", routeStation.getRoute())
+                .setParameter("stationId", routeStation.getStation())
+                .setParameter("order", routeStation.getOrder() - 1)
+                .uniqueResult();
+        if(rs == null){
+            return "Không tìm thấy trạm trước";
+        }
+        return rs;
+    }
+    
+    @Override
+    public List<RouteStation> getRouteStationByRoute(int routeId) {
+        Session s = this.factory.getObject().getCurrentSession();
+        String hql = "FROM RouteStation rs WHERE rs.route.id = :routeId";
+        List<RouteStation> rs = s.createQuery(hql,RouteStation.class)
+                .setParameter("routeId", routeId)
+                .getResultList();
+        
+        return rs;
+    }
+    
+   
 }

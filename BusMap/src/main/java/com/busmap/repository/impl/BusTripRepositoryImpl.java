@@ -47,7 +47,7 @@ public class BusTripRepositoryImpl implements BusTripRepository {
             if (kw != null && !kw.isEmpty()) {
                 Predicate p = b.or(
                         b.like(root.get("id").as(String.class), String.format("%%%s%%", kw)),
-                        b.like(root.get("route_id"), String.format("%%%s%%", kw)));
+                        b.like(root.get("routeId"), String.format("%%%s%%", kw)));
                 predicates.add(p);
             }
             if (!predicates.isEmpty()) {

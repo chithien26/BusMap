@@ -54,8 +54,6 @@
     </div>
 
 
-    
-    <!-- Form tạo mới tuyến đường -->
     <div class="create-route-form">
         <h4>Tạo Mới Tuyến Đường</h4>
         <form:errors path="*" element="div" cssClass="alert alert-danger"/>

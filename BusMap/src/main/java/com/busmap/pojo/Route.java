@@ -73,7 +73,7 @@ public class Route implements Serializable {
     private Date createdDate;
     @Column(name = "active")
     private Boolean active;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "routeId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "route")
     @JsonIgnore
     private Set<RouteStation> routeStationSet;
     @OneToMany(mappedBy = "routeId")

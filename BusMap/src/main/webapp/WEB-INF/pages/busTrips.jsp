@@ -61,10 +61,10 @@
 
 
     <div class="create-route-form">
-        <h4>Tạo Mới Tuyến Đường</h4>
+        <h4>Tạo Mới Chuyến Xe</h4>
         <form:errors path="*" element="div" cssClass="alert alert-danger"/>
         <form:form method="post" action="${action}" modelAttribute="busTrip">
-            <label for="tripNumber">Số chuyến:</label>
+            <label for="tripNumber">Số thứ tự chuyến:</label>
             <form:input path="tripNumber" type="number" id="tripNumber" placeholder="Nhập số chuyến xe..." name="tripNumber" />
             <label for="departureTime">Giờ khởi hành:</label>
             <form:input path="departureTime" type="time" id="departureTime" name="departureTime" />

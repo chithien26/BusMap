@@ -60,7 +60,7 @@ public class Schedule implements Serializable {
     @JoinColumn(name = "station_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
-    private Station stationId;
+    private Station station;
 
     
     
@@ -111,12 +111,12 @@ public class Schedule implements Serializable {
         this.busTripId = busTripId;
     }
 
-    public Station getStationId() {
-        return stationId;
+    public Station getStation() {
+        return station;
     }
 
-    public void setStationId(Station stationId) {
-        this.stationId = stationId;
+    public void setStation(Station station) {
+        this.station = station;
     }
 
     @Override
