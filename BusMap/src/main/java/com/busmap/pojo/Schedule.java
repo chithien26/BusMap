@@ -6,6 +6,7 @@ package com.busmap.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -46,8 +47,8 @@ public class Schedule implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Column(name = "arrival_time")
-    @Temporal(TemporalType.TIME)
-    private Date arrivalTime;
+//    @Temporal(TemporalType.TIME)
+    private LocalTime arrivalTime;
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
@@ -56,11 +57,14 @@ public class Schedule implements Serializable {
     @JoinColumn(name = "bus_trip_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
-    private BusTrip busTripId;
+    private BusTrip busTrip;
     @JoinColumn(name = "station_id", referencedColumnName = "id")
-    @ManyToOne(fetch = FetchType.LAZY)
+//    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)//thêm test
     @JsonIgnore
     private Station station;
+    
+    
 
     
     
@@ -79,11 +83,11 @@ public class Schedule implements Serializable {
         this.id = id;
     }
 
-    public Date getArrivalTime() {
+    public LocalTime getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(Date arrivalTime) {
+    public void setArrivalTime(LocalTime arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
@@ -103,12 +107,12 @@ public class Schedule implements Serializable {
         this.active = active;
     }
 
-    public BusTrip getBusTripId() {
-        return busTripId;
+    public BusTrip getBusTrip() {
+        return busTrip;
     }
 
-    public void setBusTripId(BusTrip busTripId) {
-        this.busTripId = busTripId;
+    public void setBusTrip(BusTrip busTrip) {
+        this.busTrip = busTrip;
     }
 
     public Station getStation() {

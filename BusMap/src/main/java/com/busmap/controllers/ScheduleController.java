@@ -6,6 +6,8 @@ package com.busmap.controllers;
 
 import com.busmap.pojo.Route;
 import com.busmap.pojo.Schedule;
+import com.busmap.service.BusTripService;
+import com.busmap.service.RouteService;
 import com.busmap.service.ScheduleService;
 import java.util.Map;
 import javax.validation.Valid;
@@ -28,13 +30,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ScheduleController {
     @Autowired
     private ScheduleService scheduleService;
-//    @Autowired
-//    private WebAppValidator routeValidator;
     
-//    @InitBinder
-//    public void initBinder(WebDataBinder binder){
-//        binder.setValidator(routeValidator);
-//    }
+    @Autowired
+    private BusTripService busTripService;
+    
+    @ModelAttribute
+    public void commAttrs(Model model, @RequestParam Map<String, String> params) {
+        model.addAttribute("busTrips", busTripService.getBusTrips(params));
+    }
     
     @GetMapping(path = "/schedules")
     public String list(Model model, @RequestParam Map<String, String> params){

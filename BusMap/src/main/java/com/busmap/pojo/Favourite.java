@@ -50,11 +50,11 @@ public class Favourite implements Serializable {
     @JoinColumn(name = "route_id", referencedColumnName = "id")
     @ManyToOne
     @JsonIgnore
-    private Route routeId;
+    private Route route;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
     @JsonIgnore
-    private User userId;
+    private User user;
 
     public Favourite() {
     }
@@ -87,20 +87,20 @@ public class Favourite implements Serializable {
         this.active = active;
     }
 
-    public Route getRouteId() {
-        return routeId;
+    public Route getRoute() {
+        return route;
     }
 
-    public void setRouteId(Route routeId) {
-        this.routeId = routeId;
+    public void setRoute(Route route) {
+        this.route = route;
     }
 
-    public User getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

@@ -4,8 +4,10 @@
  */
 package com.busmap.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -53,26 +55,26 @@ public class BusTrip implements Serializable {
     @Column(name = "trip_number")
     private int tripNumber;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "departure_time")
-    @Temporal(TemporalType.TIME)
-    private Date departureTime;
+    @JsonFormat(pattern = "HH:mm:ss")
+//    @Temporal(TemporalType.TIME)
+    private LocalTime departureTime;
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
     @Column(name = "active")
     private Boolean active;
-    @OneToMany(mappedBy = "busTripId")
+    @OneToMany(mappedBy = "busTrip")
     @JsonIgnore
     private Set<Schedule> scheduleSet;
     @JoinColumn(name = "route_id", referencedColumnName = "id")
     @ManyToOne
     @JsonIgnore
-    private Route routeId;
+    private Route route;
     @JsonIgnore
     @JoinColumn(name = "vehicle_id", referencedColumnName = "id")
     @ManyToOne
-    private Vehicle vehicleId;
+    private Vehicle vehicle;
 
     public BusTrip() {
     }
@@ -81,7 +83,7 @@ public class BusTrip implements Serializable {
         this.id = id;
     }
 
-    public BusTrip(Integer id, int tripNumber, Date departureTime) {
+    public BusTrip(Integer id, int tripNumber, LocalTime departureTime) {
         this.id = id;
         this.tripNumber = tripNumber;
         this.departureTime = departureTime;
@@ -103,11 +105,11 @@ public class BusTrip implements Serializable {
         this.tripNumber = tripNumber;
     }
 
-    public Date getDepartureTime() {
+    public LocalTime getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(Date departureTime) {
+    public void setDepartureTime(LocalTime departureTime) {
         this.departureTime = departureTime;
     }
 
@@ -136,20 +138,20 @@ public class BusTrip implements Serializable {
         this.scheduleSet = scheduleSet;
     }
 
-    public Route getRouteId() {
-        return routeId;
+    public Route getRoute() {
+        return route;
     }
 
-    public void setRouteId(Route routeId) {
-        this.routeId = routeId;
+    public void setRoute(Route route) {
+        this.route = route;
     }
 
-    public Vehicle getVehicleId() {
-        return vehicleId;
+    public Vehicle getVehicle() {
+        return vehicle;
     }
 
-    public void setVehicleId(Vehicle vehicleId) {
-        this.vehicleId = vehicleId;
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
     @Override

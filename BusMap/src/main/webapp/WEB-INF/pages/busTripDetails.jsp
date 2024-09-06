@@ -15,7 +15,7 @@
 <c:url value="/bus_trips/${busTrip.id}" var="action"/>
 <div class="container">
     <h2>Chi Tiết Chuyến Xe</h2>
-    <form:form action="${action}" method="post" modelAttribute="busTrip" >
+    <form:form action="${action}" method="post" modelAttribute="busTrip">
         <div class="form-group">
             <label for="id">Mã số chuyến</label>
             <form:input type="number" path="id" id="id" name="id" value="${busTrip.id}" readonly="true"/>
@@ -32,13 +32,13 @@
         </div>
 
         <div class="form-group">
-            <label for="routeId">Mã tuyến</label>
-            <form:input type="number" path="routeId" id="routeId" value="${busTrip.routeId}" />
+            <label for="route">Mã tuyến</label>
+            <form:input type="number" path="routeId" id="route" value="${busTrip.route.id}" />
         </div>
 
         <div class="form-group">
-            <label for="vehicleId">Mã xe</label>
-            <form:input type="number" path="vehicleId" id="vehicleId" value="${busTrip.vehicleId}" />
+            <label for="vehicle">Mã xe</label>
+            <form:input type="number" path="vehicle" id="vehicle" value="${busTrip.vehicle.id}" />
         </div>
 
         <div class="action-buttons">

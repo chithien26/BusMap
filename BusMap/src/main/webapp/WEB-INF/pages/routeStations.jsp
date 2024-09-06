@@ -41,8 +41,8 @@
                 <c:forEach var="routeStation" items="${routeStations}">
                     <tr>
                         <td>${routeStation.id}</td>
-                        <td style="text-align: center">${routeStation.routeId}</td>
-                        <td>${routeStation.stationId}</td>
+                        <td style="text-align: center">${routeStation.route.id}</td>
+                        <td>${routeStation.station.id}</td>
                         <td>${routeStation.order}</td>
                         <td>${routeStation.distFromPre}</td>
                         <td>
@@ -61,10 +61,10 @@
         <h4>Tạo Mới Tuyến - Trạm</h4>
         <form:errors path="*" element="div" cssClass="alert alert-danger"/>
         <form:form method="post" action="${action}"  modelAttribute="routeStation">
-            <label for="routeId">Mã số tuyến:</label>
-            <form:input path="routeId" type="number" id="routeId" placeholder="Nhập mã số tuyến..." name="routeId" />
-            <label for="stationId">Mã trạm:</label>
-            <form:input path="stationId" type="number" id="stationId" placeholder="Nhập mã số trạm..." name="stationId" />
+            <label for="route">Mã số tuyến:</label>
+            <form:input path="route" type="number" id="route" placeholder="Nhập mã số tuyến..." name="route" />
+            <label for="station">Mã trạm:</label>
+            <form:input path="station" type="number" id="station" placeholder="Nhập mã số trạm..." name="station" />
             <label for="order">Số thứ tự:</label>
             <form:input path="order" type="number" id="order" placeholder="Nhập số thứ tự..." name="order" />
             <label for="distFromPre">Khoảng cách đến trạm kế tiếp:</label>

@@ -63,7 +63,7 @@ public class Vehicle implements Serializable {
     private Date createdDate;
     @Column(name = "active")
     private Boolean active;
-    @OneToMany(mappedBy = "vehicleId")
+    @OneToMany(mappedBy = "vehicle")
     @JsonIgnore
     private Set<BusTrip> busTripSet;
 

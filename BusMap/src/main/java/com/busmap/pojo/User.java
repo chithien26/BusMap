@@ -107,7 +107,7 @@ public class User implements Serializable {
     @Column(name = "active")
     private boolean active;
     @JsonIgnore
-    @OneToMany(mappedBy = "userId")
+    @OneToMany(mappedBy = "user")
     private Set<Favourite> favouriteSet;
     @Transient
     private MultipartFile file;

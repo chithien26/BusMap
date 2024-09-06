@@ -76,10 +76,10 @@ public class Route implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "route")
     @JsonIgnore
     private Set<RouteStation> routeStationSet;
-    @OneToMany(mappedBy = "routeId")
+    @OneToMany(mappedBy = "route")
     @JsonIgnore
     private Set<Favourite> favouriteSet;
-    @OneToMany(mappedBy = "routeId")
+    @OneToMany(mappedBy = "route")
     @JsonIgnore
     private Set<BusTrip> busTripSet;
     

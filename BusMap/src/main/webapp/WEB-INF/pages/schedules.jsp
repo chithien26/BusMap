@@ -40,8 +40,8 @@
                 <c:forEach var="schedule" items="${schedules}">
                     <tr>
                         <td style="text-align: center">${schedule.id}</td>
-                        <td style="text-align: center">${schedule.busTripId}</td>
-                        <td style="text-align: center">${schedule.stationId}</td>
+                        <td style="text-align: center">${schedule.busTrip}</td>
+                        <td style="text-align: center">${schedule.station}</td>
                         <td>${schedule.arrivalTime}</td>
                         <td>
                             <div class="action-buttons">
@@ -57,15 +57,25 @@
 
 
     
-    <!-- Form tạo mới tuyến đường -->
     <div class="create-route-form">
         <h4>Tạo Mới Lịch Trình</h4>
         <form:errors path="*" element="div" cssClass="alert alert-danger"/>
         <form:form method="post" action="${action}"  modelAttribute="schedule">
-            <label for="name">Mã chuyến:</label>
-            <form:input path="busTripId" type="number" id="busTripId" placeholder="Nhập mã chuyến..." name="busTripId" />
-            <label for="stationId">Mã trạm</label>
-            <form:input path="stationId" type="number" id="stationId" placeholder="Nhập mã trạm..." name="stationId" />
+            <label for="browser" class="form-label">Chuyến xe:</label>
+            <form:select class="form-select" path="busTrip" >
+                <c:forEach items="${busTrips}" var="b">
+                    <c:choose>
+                        <c:when test="${b.id == schedule.busTrip.id}">
+                            <option value="${b.id}" selected>${b.id}</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${b.id}">${b.id}</option>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </form:select>
+            <label for="station">Mã trạm</label>
+            <form:input path="station" type="number" id="station" placeholder="Nhập mã trạm..." name="station" />
             <label for="arrivalTime">Thời gian đến trạm:</label>
             <form:input path="arrivalTime" type="time" id="arrivalTime" name="arrivalTime" />
             <button type="submit">Thêm lịch trình</button>

@@ -39,22 +39,22 @@
                 </tr>
             </thead>
             <tbody>
-            <c:forEach var="busTrip" items="${busTrips}">
-                <tr>
-                    <td style="text-align: center">${busTrip.id}</td>
-                    <td>${busTrip.tripNumber}</td>
-                    <td>${busTrip.departureTime}</td>
-                    <td>${busTrip.routeId}</td>
-                    <td>${busTrip.vehicleId}</td>
+                <c:forEach var="busTrip" items="${busTrips}">
+                    <tr>
+                        <td style="text-align: center">${busTrip.id}</td>
+                        <td>${busTrip.tripNumber}</td>
+                        <td>${busTrip.departureTime}</td>
+                        <td>${busTrip.route}</td>
+                        <td>${busTrip.vehicle}</td>
 
-                    <td>
-                        <div class="action-buttons">
-                            <a href="<c:url value='/bus_trips/${busTrip.id}' />" class="btn-edit">Sửa</a>
-                            <a href="<c:url value='/bus_trips/${busTrip.id}/delete' />"  class="btn-delete" >Xóa</a>
-                        </div>
-                    </td>
-                </tr>
-            </c:forEach>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="<c:url value='/bus_trips/${busTrip.id}' />" class="btn-edit">Sửa</a>
+                                <a href="<c:url value='/bus_trips/${busTrip.id}/delete' />"  class="btn-delete" >Xóa</a>
+                            </div>
+                        </td>
+                    </tr>
+                </c:forEach>
             </tbody>
         </table>
     </div>
@@ -68,10 +68,21 @@
             <form:input path="tripNumber" type="number" id="tripNumber" placeholder="Nhập số chuyến xe..." name="tripNumber" />
             <label for="departureTime">Giờ khởi hành:</label>
             <form:input path="departureTime" type="time" id="departureTime" name="departureTime" />
-            <label for="routeId">Tuyến xe:</label>
-            <form:input path="routeId" type="number" id="routeId" name="routeId" placeholder="Nhập mã tuyến xe..."/>
-            <label for="vehicleId" >Xe:</label>
-            <form:input path="vehicleId" type="number" id="vehicleId" placeholder="Nhập mã xe..." name="vehicleId" />
+            <label for="route" class="form-label">Tuyến xe:</label>
+            <form:select class="form-select" path="route">
+                <c:forEach items="${routes}" var="r">
+                    <c:choose>
+                        <c:when test="${r.id == busTrip.route.id}">
+                            <option value="${r.id}" selected>${r.name}</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${r.id}">${r.name}</option>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </form:select>
+            <label for="vehicle" >Xe:</label>
+            <form:input path="vehicle" type="number" id="vehicle" placeholder="Nhập mã xe..." name="vehicle" />
             <button type="submit">Thêm chuyến xe</button>
         </form:form>
     </div>

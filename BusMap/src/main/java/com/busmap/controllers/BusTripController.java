@@ -6,6 +6,7 @@ package com.busmap.controllers;
 
 import com.busmap.pojo.BusTrip;
 import com.busmap.service.BusTripService;
+import com.busmap.service.RouteService;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class BusTripController {
     @Autowired
     private BusTripService busTripService;
+    
+    @Autowired
+    private RouteService routeService;
 //    @Autowired
 //    private WebAppValidator routeValidator;
     
@@ -34,6 +38,10 @@ public class BusTripController {
 //    public void initBinder(WebDataBinder binder){
 //        binder.setValidator(routeValidator);
 //    }
+    @ModelAttribute
+    public void commAttrs(Model model, @RequestParam Map<String, String> params) {
+        model.addAttribute("routes", routeService.getRoutes(params));
+    }
     
     @GetMapping(path = "/bus_trips")
     public String list(Model model, @RequestParam Map<String, String> params){

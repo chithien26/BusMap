@@ -49,8 +49,8 @@ public class RouteStationRepositoryImpl implements RouteStationRepository{
             String kw = params.get("kw");
             if(kw != null && !kw.isEmpty()){
                 Predicate p = b.or(
-                        b.like(root.get("route").as(String.class), String.format("%%%s%%", kw)), 
-                        b.like(root.get("station"), String.format("%%%s%%", kw)));
+                        b.like(root.get("route.id").as(String.class), String.format("%%%s%%", kw)), 
+                        b.like(root.get("station.id"), String.format("%%%s%%", kw)));
                 predicates.add(p);
             }
             if (!predicates.isEmpty()) {

@@ -96,8 +96,15 @@ public class RouteRepositoryImpl implements RouteRepository {
     public List<Route> findRoutes(int startStationId, int endStationId) {
         Station startStation = this.stationService.getStationById(startStationId);
         Station endStation = this.stationService.getStationById(endStationId);
+        
 
         Session s = this.factory.getObject().getCurrentSession();
+//        String hql = "SELECT rs.route "
+//                + "FROM RouteStation rs "
+//                + "WHERE rs.station.id IN (:startStationId, :endStationId) "
+//                + "GROUP BY rs.route.id "
+//                + "HAVING COUNT(DISTINCT rs.station.id) = 2";
+        
         // Query to find routes that go through both stations
         String hql = "SELECT rs.route "
                 + "FROM RouteStation rs "
