@@ -63,7 +63,7 @@ public class User implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     private String lastName;
     @Basic(optional = false)
     @NotNull
@@ -81,7 +81,7 @@ public class User implements Serializable {
     @Column(name = "role")
     private String role;
     @Basic(optional = false)
-    @NotNull
+//    @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "avatar")
     private String avatar;
@@ -98,12 +98,12 @@ public class User implements Serializable {
     @Column(name = "phone")
     private String phone;
     @Basic(optional = false)
-    @NotNull
+//    @NotNull
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
     @Basic(optional = false)
-    @NotNull
+//    @NotNull
     @Column(name = "active")
     private boolean active;
     @JsonIgnore
@@ -120,6 +120,17 @@ public class User implements Serializable {
         this.id = id;
     }
 
+    public User(String firstName, String lastName, String username, String password, String role, String email, String phone) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.email = email;
+        this.phone = phone;
+
+    }
+    
     public User(Integer id, String firstName, String lastName, String username, String password, String role, String avatar, String email, String phone, Date createdDate, boolean active) {
         this.id = id;
         this.firstName = firstName;

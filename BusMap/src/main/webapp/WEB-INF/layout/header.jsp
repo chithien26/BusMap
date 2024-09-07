@@ -19,6 +19,8 @@
 <c:url value="/bus_trips" var="busTrips"/>
 <c:url value="/schedules" var="schedules"/>
 <c:url value="/route_stations" var="routeStations"/>
+<c:url value="/users" var="users"/>
+
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 
@@ -48,6 +50,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="${routeStations}">Tuyen-Tram</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="${users}">User</a>
             </li>
             <s:authorize access="isAuthenticated()">
                 <li class="nav-item">

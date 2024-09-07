@@ -6,6 +6,13 @@ package com.busmap.repository.impl;
 
 import com.busmap.pojo.User;
 import com.busmap.repository.UserRepository;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +48,34 @@ public class UserRepositoryImpl implements UserRepository {
         
         return user;
         
+    }
+
+    @Override
+    public List<User> getUsers(Map<String, String> params) {
+        Session s = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder b = s.getCriteriaBuilder();
+        CriteriaQuery<User> q = b.createQuery(User.class);
+        Root root = q.from(User.class);
+        q.select(root);
+
+        if (params != null) {
+            List<Predicate> predicates = new ArrayList<>();
+
+            String kw = params.get("kw");
+            if (kw != null && !kw.isEmpty()) {
+                Predicate p = b.or(
+                        b.like(root.get("id").as(String.class), String.format("%%%s%%", kw)),
+                        b.like(root.get("username"), String.format("%%%s%%", kw)));
+                predicates.add(p);
+            }
+            if (!predicates.isEmpty()) {
+                q.where(predicates.toArray(new Predicate[0]));
+            }
+
+        }
+
+        Query<User> query = s.createQuery(q);
+        return query.getResultList();
     }
 
 }

@@ -53,6 +53,14 @@ public class ApiRouteController {
         return new ResponseEntity<>(routes, HttpStatus.OK);
     }
     
+    @PostMapping("/routes/find_two_routes")
+    public ResponseEntity<List<Map<String, Object>>> findTwoRoutes(
+            @RequestParam("startStationId") int startStationId,
+            @RequestParam("endStationId") int endStationId) {
+        List<Map<String, Object>> routeTransferList = this.routeService.findTwoRoutes(startStationId, endStationId);
+        return new ResponseEntity<>(routeTransferList, HttpStatus.OK);
+    }
+    
     
     @PostMapping("/routes/station_in_route")
     public ResponseEntity<List<Station>> getStationsInRoute(

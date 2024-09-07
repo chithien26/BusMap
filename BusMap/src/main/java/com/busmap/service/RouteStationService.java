@@ -20,4 +20,6 @@ public interface RouteStationService {
     Object nextRouteStation(RouteStation routeStation);
     Object backRouteStation(RouteStation routeStation);
     List<RouteStation> getRouteStationByRoute(int routeId);
+    List<RouteStation> getRouteStationsByStation(int stationId);
+
 }

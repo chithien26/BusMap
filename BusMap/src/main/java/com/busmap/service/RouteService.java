@@ -19,6 +19,7 @@ public interface RouteService {
     Route getRouteById(int id); 
     void deleteRoute(int id); 
     List<Route> findRoutes(int startStationId, int endStationId);
+    List<Map<String, Object>> findTwoRoutes(int startStationId, int endStationId);
     List<Station> getStationsInRoute(int routeId, int startStationId, int endStationId);
     List<Station> getAllStationsInRoute(int routeId);
 }

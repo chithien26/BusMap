@@ -62,8 +62,15 @@ public class RouteServiceImpl implements RouteService{
 
     @Override
     public List<Station> getAllStationsInRoute(int i) {
-        return this.getAllStationsInRoute(i);
+        return this.routeRepository.getAllStationsInRoute(i);
     }
+
+    @Override
+    public List<Map<String, Object>> findTwoRoutes(int i, int i1) {
+        return this.routeRepository.findTwoRoutes(i, i1);
+    }
+
+    
 
     
 

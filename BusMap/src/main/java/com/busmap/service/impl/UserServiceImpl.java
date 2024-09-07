@@ -8,6 +8,8 @@ import com.busmap.pojo.User;
 import com.busmap.repository.UserRepository;
 import com.busmap.service.UserService;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -34,6 +36,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional  
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User u = this.getUserByUsername(username);
         if (u == null) {
@@ -50,6 +53,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User createUser(User user) {
         return this.userRepository.createUser(user);
+    }
+
+    @Override
+    public List<User> getUsers(Map<String, String> params) {
+        return this.userRepository.getUsers(params);
     }
 
 }

@@ -15,7 +15,7 @@
 
 
 <div class="container">
-    <h2>Quản trị Tuyến Đường</h2>
+    <h2>Quản trị Tuyến-Trạm </h2>
     <form action="${action}" method="get" class="search-form">
         <div class="search-input-container">
             <span class="search-icon">🔍</span>

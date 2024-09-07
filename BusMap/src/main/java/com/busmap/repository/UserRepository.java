@@ -5,6 +5,8 @@
 package com.busmap.repository;
 
 import com.busmap.pojo.User;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -13,4 +15,5 @@ import com.busmap.pojo.User;
 public interface UserRepository {
     User getUserByUsername(String username);
     User createUser(User user);
+    List<User> getUsers(Map<String, String> params);
 }

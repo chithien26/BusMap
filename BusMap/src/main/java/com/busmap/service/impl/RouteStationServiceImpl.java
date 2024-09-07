@@ -56,6 +56,11 @@ public class RouteStationServiceImpl implements RouteStationService{
     public List<RouteStation> getRouteStationByRoute(int routeId) {
         return this.RouteStationRepository.getRouteStationByRoute(routeId);
     }
+
+    @Override
+    public List<RouteStation> getRouteStationsByStation(int stationId) {
+        return this.RouteStationRepository.getRouteStationsByStation(stationId);
+    }
     
     
 }

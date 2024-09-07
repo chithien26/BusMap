@@ -8,13 +8,16 @@ import com.busmap.pojo.Route;
 import com.busmap.pojo.RouteStation;
 import com.busmap.pojo.Station;
 import com.busmap.repository.RouteRepository;
+import com.busmap.service.RouteService;
+import com.busmap.service.RouteStationService;
 import com.busmap.service.StationService;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import java.util.Set;
+import java.util.stream.Collectors;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -39,6 +42,12 @@ public class RouteRepositoryImpl implements RouteRepository {
 
     @Autowired
     private StationService stationService;
+
+    @Autowired
+    private RouteService routeService;
+
+    @Autowired
+    private RouteStationService routeStationService;
 
     @Override
     public List<Route> getRoutes(Map<String, String> params) {
@@ -94,34 +103,23 @@ public class RouteRepositoryImpl implements RouteRepository {
 
     @Override
     public List<Route> findRoutes(int startStationId, int endStationId) {
-        Station startStation = this.stationService.getStationById(startStationId);
-        Station endStation = this.stationService.getStationById(endStationId);
-        
-
         Session s = this.factory.getObject().getCurrentSession();
-//        String hql = "SELECT rs.route "
-//                + "FROM RouteStation rs "
-//                + "WHERE rs.station.id IN (:startStationId, :endStationId) "
-//                + "GROUP BY rs.route.id "
-//                + "HAVING COUNT(DISTINCT rs.station.id) = 2";
-        
-        // Query to find routes that go through both stations
         String hql = "SELECT rs.route "
                 + "FROM RouteStation rs "
                 + "WHERE rs.station.id IN (:startStationId, :endStationId) "
                 + "GROUP BY rs.route.id "
                 + "HAVING COUNT(DISTINCT rs.station.id) = 2";
 
-        // Execute query and return result
         List<Route> routes = s.createQuery(hql, Route.class)
                 .setParameter("startStationId", startStationId)
                 .setParameter("endStationId", endStationId)
                 .getResultList();
+        if (routes.isEmpty()) {
 
+        }
         return routes;
-
     }
-    
+
     @Override
     public List<Station> getStationsInRoute(int routeId, int startStationId, int endStationId) {
         Session s = this.factory.getObject().getCurrentSession();
@@ -162,7 +160,7 @@ public class RouteRepositoryImpl implements RouteRepository {
     public List<Station> getAllStationsInRoute(int routeId) {
         Session s = this.factory.getObject().getCurrentSession();
         String stationsHql = "SELECT rs.station FROM RouteStation rs "
-                + "WHERE rs.route.id = :routeId"
+                + "WHERE rs.route.id = :routeId "
                 + "ORDER BY rs.order";
         List<Station> stations = s.createQuery(stationsHql, Station.class)
                 .setParameter("routeId", routeId)
@@ -170,4 +168,78 @@ public class RouteRepositoryImpl implements RouteRepository {
         return stations;
     }
 
+    @Override
+    public List<Map<String, Object>> findTwoRoutes(int startStationId, int endStationId) {
+        List<RouteStation> startRouteStations = this.routeStationService.getRouteStationsByStation(startStationId);
+        List<RouteStation> endRouteStations = this.routeStationService.getRouteStationsByStation(endStationId);
+
+        List<Map<String, Object>> routeTransferList = new ArrayList<Map<String, Object>>();
+
+        for (RouteStation startRouteStation : startRouteStations) {
+            for (RouteStation endRouteStation : endRouteStations) {
+                if (startRouteStation.getRoute().getId().equals(endRouteStation.getRoute().getId())) {
+                    continue; // Bỏ qua nếu là cùng một tuyến
+                }
+
+                List<Station> listStationStart = this.routeService.getAllStationsInRoute(startRouteStation.getRoute().getId());
+                List<Station> listStationEnd = this.routeService.getAllStationsInRoute(endRouteStation.getRoute().getId());
+
+                if (listStationStart != null && listStationEnd != null) {
+                    // Tạo một Set<Long> cho các trạm của startRoute thủ công
+                    Set<Integer> startStationIds = new HashSet<Integer>();
+                    for (Station s : listStationStart) {
+                        startStationIds.add(s.getId());
+                    }
+
+                    // Kiểm tra xem có trạm chung giữa startRoute và endRoute không
+                    for (Station s1 : listStationEnd) {
+                        if (startStationIds.contains(s1.getId())) {
+                            Map<String, Object> routeTransferData = new HashMap<String, Object>();
+                            routeTransferData.put("routeStart", startRouteStation.getRoute());
+                            routeTransferData.put("routeEnd", endRouteStation.getRoute());
+                            routeTransferData.put("transferStation", s1); // Trạm chung
+
+                            routeTransferList.add(routeTransferData);
+                        }
+                    }
+                }
+            }
+        }
+
+        return routeTransferList;
+    }
+
+//    @Override
+//    public List<Map<String, Object>> findTwoRoutes(int startStationId, int endStationId) {
+//        List<RouteStation> startRouteStations = this.routeStationService.getRouteStationsByStation(startStationId);
+//        List<RouteStation> endRouteStations = this.routeStationService.getRouteStationsByStation(endStationId);
+//
+//        List<Map<String, Object>> routeTransferList = new ArrayList<>();
+//
+//        for (RouteStation startRouteStation : startRouteStations) {
+//            for (RouteStation endRouteStation : endRouteStations) {
+//                if (startRouteStation.getRoute().getId().equals(endRouteStation.getRoute().getId())) {
+//                    continue;
+//                }
+//
+//                List<Station> listStationStart = this.routeService.getAllStationsInRoute(startRouteStation.getRoute().getId());
+//                List<Station> listStationEnd = this.routeService.getAllStationsInRoute(endRouteStation.getRoute().getId());
+//                for (Station s : listStationStart) {
+//                    for (Station s1 : listStationEnd) {
+//                        if (s.getId().equals(s1.getId())) {
+//                            Map<String, Object> routeTransferData = new HashMap<>();
+//                            routeTransferData.put("routeStart", startRouteStation.getRoute());
+//                            routeTransferData.put("routeEnd", endRouteStation.getRoute());
+//                            routeTransferData.put("transferStation", s);
+//
+//                            routeTransferList.add(routeTransferData);
+//                        }
+//                    }
+//                }
+//            }
+//
+//        }
+//
+//        return routeTransferList;
+//    }
 }

@@ -23,7 +23,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import lombok.ToString;
 
 /**
  *
@@ -59,8 +58,7 @@ public class Schedule implements Serializable {
     @JsonIgnore
     private BusTrip busTrip;
     @JoinColumn(name = "station_id", referencedColumnName = "id")
-//    @ManyToOne(fetch = FetchType.LAZY)
-    @ManyToOne(optional = false)//thêm test
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private Station station;
     

@@ -5,6 +5,8 @@
 package com.busmap.service;
 
 import com.busmap.pojo.User;
+import java.util.List;
+import java.util.Map;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
@@ -15,4 +17,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public interface UserService extends UserDetailsService{
     User getUserByUsername(String username);
     User createUser(User user);
+    List<User> getUsers(Map<String, String> params);
+
 }

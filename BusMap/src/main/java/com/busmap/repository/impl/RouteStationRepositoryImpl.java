@@ -124,6 +124,19 @@ public class RouteStationRepositoryImpl implements RouteStationRepository{
         
         return rs;
     }
+
+    @Override
+    public List<RouteStation> getRouteStationsByStation(int stationId) {
+        Session s = this.factory.getObject().getCurrentSession();
+        String routeStationHql = "SELECT * FROM RouteStation rs "
+                + "WHERE rs.station.id = :stationId ";
+                
+        List<RouteStation> rs = s.createQuery(routeStationHql,RouteStation.class)
+                .setParameter("stationId", stationId)
+                .getResultList();
+        
+        return rs;
+    }
     
    
 }
